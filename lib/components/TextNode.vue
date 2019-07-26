@@ -1,11 +1,13 @@
 <template>
   <div class="text-node">
     <input type="text"
-      v-model="model.value"
       :id="model.uid"
-      @blur="onTextNodeBlur"
-      @focus="onTextNodeFocus"
-      @keyup="onInputKeyUp">
+      :value="model.value"
+      :autocomplete="false"
+      @blur="onBlur"
+      @focus="onFocus"
+      @keyup="onKeyUp"
+      @input="onInput">
     <div class="hidden">{{model.value}}</div>
   </div>
 </template>
@@ -19,13 +21,13 @@ export default {
     model: Object
   },
   methods: {
-    onTextNodeBlur(evt) {
+    onBlur(evt) {
       this.dispatchCurrentFocusNode(evt.target.selectionStart)
     },
-    onTextNodeFocus(evt) {
+    onFocus(evt) {
       this.dispatchCurrentFocusNode(evt.target.selectionStart)
     },
-    onInputKeyUp(evt) {
+    onKeyUp(evt) {
       switch(evt.keyCode) {
         // BackSpace
         case 8:
@@ -36,6 +38,10 @@ export default {
           this.dispatchLineFeed(evt)
           break
       }
+    },
+    onInput(evt) {
+      this.model.value = evt.target.value
+      this.dispatchBoundaryDetection(this.model)
     },
     dispatchDeleteNode(evt) {
       const cursorPosition = evt.target.selectionStart
@@ -49,7 +55,11 @@ export default {
       }
     },
     dispatchLineFeed(evt) {
-      
+      const cursorPosition = evt.target.selectionStart
+      this.$dispatch('.row-container', 'lineFeed', {
+        node: this.model,
+        cursorPosition
+      })
     },
     dispatchCurrentFocusNode(cursorPosition) {
       this.$dispatch('.row-container', 'changeCurrentFocusNode', {
@@ -84,6 +94,7 @@ export default {
     .hidden {
       height: 100%;
       font-size: 14px;
+      visibility: hidden;
     }
   }
 </style>

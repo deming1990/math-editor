@@ -1,5 +1,8 @@
 <template>
-  <div class="row-container" @click="onRowContainerClick">
+  <div class="row-container"
+    :id="model.uid"
+    @click="onRowContainerClick" 
+    ref="rowContainer">
     <basic-node 
       v-for="child in model.children"
       :model="child"

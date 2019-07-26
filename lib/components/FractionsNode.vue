@@ -1,5 +1,5 @@
 <template>
-  <div class="fractions-node">
+  <div :id="model.uid" class="fractions-node">
     <div :class="['box', hasNumerator ? 'none' : '']">
       <basic-node v-for="item in numerator" :model="item" :key="item.uid" />
     </div>
@@ -30,11 +30,9 @@ export default {
       return this.model.children.filter(item => item.slot === SLOT_DENOMINATOR)
     },
     hasNumerator() {
-      console.log('numerator: ', this.numerator)
       return this.numerator.length > 1 || this.numerator[0].value !== ''
     },
     hasDenominator() {
-      console.log('denominator: ', this.denominator)
       return this.denominator.length > 1 || this.denominator[0].value !== ''
     }
   }
