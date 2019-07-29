@@ -4,7 +4,12 @@
       class="math-node-item"
       :key="node.compType"
       @click="onNodeClick(node.compType)">
-      <img :src="node.icon" />
+      <template>
+        <img v-if="node.iconImage" :src="node.iconImage" />
+      </template>
+      <template v-if="node.iconText">
+        {{node.iconText}}
+      </template>
     </div>
   </div>
 </template>
@@ -45,6 +50,10 @@ export default {
       padding: 5px;
       border-right: 1px solid @border-color;
       border-bottom: 1px solid @border-color;
+      font-size: @text-font-size;
+      line-height: 30px;
+      text-align: center;
+      cursor: pointer;
       img {
         height: 25px;
         width: 25px;

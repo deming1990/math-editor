@@ -1,10 +1,10 @@
 <template>
   <div :id="model.uid" class="fractions-node">
-    <div :class="['box', hasNumerator ? 'none' : '']">
+    <div>
       <basic-node v-for="item in numerator" :model="item" :key="item.uid" />
     </div>
     <div class="split"></div>
-    <div :class="['box', hasDenominator ? 'none' : '']">
+    <div>
       <basic-node v-for="item in denominator" :model="item" :key="item.uid" />
     </div>
   </div>  
@@ -46,16 +46,6 @@ export default {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    .box {
-      min-width: 20px;
-      padding: 2px;
-      border: 2px solid @border-color;
-      display: flex;
-      align-items: center;
-      &.none {
-        border: none;
-      }
-    }
     .split {
       width: 100%;
       height: 2px;

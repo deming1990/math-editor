@@ -3,7 +3,7 @@
     <input type="text"
       :id="model.uid"
       :value="model.value"
-      :autocomplete="false"
+      autocomplete="off"
       @blur="onBlur"
       @focus="onFocus"
       @keyup="onKeyUp"
@@ -12,10 +12,11 @@
   </div>
 </template>
 <script>
+import {NODE_TYPES} from '../constants'
 import compMixin from './component-mixin'
 
 export default {
-  name: 'text-node',
+  name: NODE_TYPES.TEXT_NODE,
   mixins: [compMixin],
   props: {
     model: Object
@@ -71,30 +72,31 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  @import '../styles/variables.less';
   .text-node {
     position: relative;
-    display: inline-block;
-    height: 20px;
     width: fit-content;
-    padding: 0 5px;
+    display: inline-block;
     input {
       position: absolute;
-      top: 1px;
-      left: 1px;
-      height: 20px;
+      top: 0px;
+      left: 0px;
+      height: 100%;
       width: 100%;
-      line-height: 20px;
-      font-size: 14px;
+      padding: 0;
+      margin: 0;
+      font-size: @text-font-size;
       border: none;
+      outline: none;
       z-index: 10;
-      &:focus {
-        outline: none;
-      }
     }
     .hidden {
-      height: 100%;
-      font-size: 14px;
+      height: @box-size;
+      margin: 0 2px;
+      line-height: @box-size;
+      font-size: @text-font-size;
       visibility: hidden;
+      display: inline-block;
     }
   }
 </style>
