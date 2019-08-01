@@ -7,6 +7,7 @@
     "start": "webpack-dev-server --config ./build/config.dev.js"
   },
   "dependencies": {
+    "JSON2": "^0.1.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {

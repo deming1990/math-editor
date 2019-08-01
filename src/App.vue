@@ -1,29 +1,133 @@
 <template>
-  <div class="main">
-    <MathEditor />
+  <div class="container">
+    <div class="tab-head">
+      <div v-for="item in tabs" 
+        :class="'tab-head-item'"
+        :key="item.id">
+        {{item.name}}
+      </div>
+    </div>
+    <div class="tab-body">
+      <div class="tab-body-item">
+        <MathEditor :mode="'edit'" ref="mathEditorA" />
+      </div>
+      <div class="tab-body-item">
+        <MathEditor :mode="'preview'" ref="mathEditorB" />
+      </div>
+    </div>
+    <ul class="action-group">
+      <li class="action">
+        <button @click="handleOutput">导出数据</button>
+      </li>
+      <li class="action">
+        <button @click="handleInput">导入数据</button>
+      </li>
+    </ul>
+    <div class="result-section">
+      <div class="section-title">
+        数据
+      </div>
+      <div class="section-content">
+        {{result}}
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import MathEditor from '../lib/MathEditor.vue'
+
+const TABS = [
+  {id: 1, name: '编辑模式'},
+  {id: 2, name: '预览模式'}
+]
+
 export default {
+  data() {
+    return {
+      tabs: TABS,
+      currTab: TABS[0].id,
+      result: ''
+    }
+  },
   components: {
     MathEditor
+  },
+  methods: {
+    switchTab(id) {
+      this.currTab = id
+    },
+    handleOutput() {
+      this.result = this.$refs.mathEditorA.getValue()
+    },
+    handleInput() {
+      this.$refs.mathEditorB.setValue(this.result)
+    }
   }
 }
 </script>
 <style lang="less" scoped>
-  html, body {
-    position: relative;
-    width: 100%;
-    height: 100%;
+@border-color: #d3d3d3;
+
+.container {
+  position: relative;
+  width: 900px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid @border-color;
+  border-radius: 4px;
+  .tab-head {
+    height: 30;
+    display: flex;
+    border-bottom: 1px solid @border-color;
+    .tab-head-item {
+      flex: 1;
+      line-height: 30px;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+      border-right: 1px solid @border-color;
+      cursor: pointer;
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+  .tab-body {
+    flex: 1;
+    display: flex;
+    .tab-body-item {
+      flex: 1;
+      overflow: hidden;
+      padding: 5px;
+    }
+  }
+  .action-group {
+    height: 30px;
     margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    .action {
+      flex: 1;
+      padding-left: 10px;
+    }
   }
-  .main {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
+  .result-section {
+    .section-title {
+      height: 30px;
+      line-height: 30px;
+      font-size: 16px;
+      text-align: center;
+      color: #333;
+      border-top: 1px solid #d3d3d3;
+      border-bottom: 1px solid #d3d3d3;
+    }
+    .section-content {
+      height: 150px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
   }
+}
 </style>

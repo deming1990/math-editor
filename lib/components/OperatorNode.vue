@@ -1,7 +1,7 @@
 <template>
-  <div :id="model.uid" class="operator-node">
+  <span :id="model.uid" class="operator-node">
     {{OPERATOR_CHARS[model.compType]}}
-  </div>
+  </span>
 </template>
 <script>
 import {NODE_TYPES, OPERATOR_CHARS} from '../constants'
@@ -22,10 +22,10 @@ export default {
   @import '../styles/variables.less';
   .operator-node {
     height: @box-size;
-    width: @box-size;
+    padding: 0 5px;
     line-height: @box-size;
-    text-align: center;
-    font-size: @text-font-size;
-    display: inline-block;
+    font-size: @normal-font-size;
+    font-family: @text-font-family;
+    display: inline-flex;
   }
 </style>

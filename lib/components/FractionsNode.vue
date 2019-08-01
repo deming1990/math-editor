@@ -1,10 +1,10 @@
 <template>
   <div :id="model.uid" class="fractions-node">
-    <div>
+    <div class="numerator">
       <basic-node v-for="item in numerator" :model="item" :key="item.uid" />
     </div>
     <div class="split"></div>
-    <div>
+    <div class="denominator">
       <basic-node v-for="item in denominator" :model="item" :key="item.uid" />
     </div>
   </div>  
@@ -43,6 +43,7 @@ export default {
 
   .fractions-node {
     width: fit-content;
+    margin: 0 5px;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -51,6 +52,9 @@ export default {
       height: 2px;
       background: @border-color;
       margin: 2px;
+    }
+    .numerator, .denominator {
+      padding: 0 5px;
     }
   }
 </style>

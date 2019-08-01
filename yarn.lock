@@ -755,6 +755,11 @@
   version "4.2.2"
   resolved "https://registry.npm.taobao.org/@xtuc/long/download/@xtuc/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
 
+JSON2@^0.1.0:
+  version "0.1.0"
+  resolved "http://r.cnpmjs.org/JSON2/download/JSON2-0.1.0.tgz#8d7493040a63d5835af75f47decb83ab6c8c0790"
+  integrity sha1-jXSTBApj1YNa919H3suDq2yMB5A=
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/abbrev/download/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"

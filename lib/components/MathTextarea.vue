@@ -7,6 +7,7 @@
       :model="row"
       :key="row.id"
       @changeCurrentFocusNode="onChangeCurrentFocusNode"
+      @moveCursor="onMoveCursor"
       @deleteNode="onDeleteNode"
       @lineFeed="onLineFeed"
       @boundaryDetection="onBoundaryDetection">
@@ -19,6 +20,7 @@ import NodeManager from '../models/NodeManager'
 import helper from '../utils/helper'
 import compMixin from './component-mixin'
 import boundaryDetection from '../utils/boundaryDetection'
+import { setTimeout } from 'timers';
 
 const isRowContainer = (node) => {
   return node && node instanceof RowContianer
@@ -35,6 +37,12 @@ export default {
     }
   },
   methods: {
+    getValue() {
+      return helper.arrToStr(this.rows)
+    },
+    setValue(val) {
+      this.rows = helper.strToArr(val)
+    },
     onMathTextareaClick(evt) {
       if(!evt.target.matches('.math-textarea')) return
       const lastRowContainer = this.getLastRowContainer()
@@ -47,6 +55,42 @@ export default {
       this.currentFocusNode = node
       this.currentCursorPosition = cursorPosition
     },
+    onMoveCursor({
+      node,
+      direction
+    }) {
+      const getPrevOrNextRow = (node, direction) => {
+        const currRow = this.getBelongRow(node)
+        const rowIndex = this.getRowIndex(currRow)
+        const rowCount = this.getRowCount()
+        if(direction === 'prev' && rowIndex > 0) {
+          const prevRow = this.getRow(rowIndex - 1)
+          return prevRow.getLastChild()
+        } else if(direction === 'next' && rowIndex < rowCount - 1) {
+          const nextRow = this.getRow(rowIndex + 1)
+          return nextRow.getFirstChild()
+        }
+      }
+      let currNode
+      switch(direction) {
+        case 'left':
+          currNode = this.getPrevTextNode(node)
+          currNode && helper.setElementFocus(currNode.uid)
+          break
+        case 'right':
+          currNode = this.getNextTextNode(node)
+          currNode && helper.setElementFocus(currNode.uid, 0)
+          break
+        case 'up':
+          currNode = getPrevOrNextRow(node, 'prev')
+          currNode && helper.setElementFocus(currNode.uid)
+          break
+        case 'down':
+          currNode = getPrevOrNextRow(node, 'next')
+          currNode && helper.setElementFocus(currNode.uid, 0)
+          break
+      }
+    },
     /**
      * 处理删除节点
      */
@@ -54,70 +98,60 @@ export default {
       type,
       node
     }) {
-      const deleteSiblingNode = (parent, index) => {
-        const beforeNode = parent.children[index - 1]
-        if(NodeManager.isTextNode(beforeNode)) {
-          helper.setElementFocus(beforeNode.uid, beforeNode.value.length)
+      const deleteSiblingNode = (node, type) => {
+        const parent = node.parent
+        const children = parent.children
+        const nodeIndex = children.indexOf(node)
+        if(nodeIndex > 0) {
+          let prevIndex = nodeIndex - 1
+          let prevNode = children[prevIndex]
+          if(NodeManager.isOperatorNode(prevNode) || NodeManager.isMathNode(prevNode)) {
+            children.splice(prevIndex, 1)
+          } else if(NodeManager.isTextNode(prevNode)) {
+            type === 1 && children.splice(nodeIndex, 1)
+            helper.setElementFocus(prevNode.uid)
+          }
         } else {
-          // 任何节点的子节点列表的第一个节点一定是TextNode
-          parent.children.splice(index - 1, 1)
-          deleteSiblingNode(parent, index - 1)
-        }
-      }
-      const parent = node.parent
-      const index = parent.children.indexOf(node)
-      if(isRowContainer(parent)) {
-        const row = parent
-        if(index > 0) {
-          // 当前节点已经没有内容
-          type === 1 && row.removeChild(index)
-          deleteSiblingNode(row, index)
-        } else {
-          // 行首节点
-          if(parent.size() > 1) {
-            while(node.isEmpty()) {
-              row.removeChild(index)
-              node = row.getChild(index)
+          if(isRowContainer(parent)) {
+            const rowIndex = this.getRowIndex(parent)
+            if(parent.size() === 1 && type === 1) {
+              rowIndex > 0 && this.deleteRow(parent)
+            } else {
+              if(rowIndex > 0) {
+                const prevRow = this.getRow(rowIndex - 1)
+                this.concatRow(prevRow, parent)
+              }
             }
-            const rowIndex = this.getRowIndex(row)
-            if(this.getRowCount() > 1 
-              && rowIndex > 0) {
-              const beforeRow = this.getRow(rowIndex - 1)
-              const afterRow = this.getRow(rowIndex)
-              this.concatRow(beforeRow, afterRow)
-            }
-          } else {
-            this.deleteRow(parent)
           }
         }
-      } else {
-
       }
+      deleteSiblingNode(node, type)
     },
     concatRow(beforeRow, afterRow) {
       const nodes = afterRow.children
+      const middleNode = nodes[0]
       beforeRow.appendChild(nodes)
       nodes.forEach((item) => {
         item.parent = beforeRow
       })
       this.deleteRow(afterRow)
       this.onBoundaryDetection({
-        target: beforeRow.getLastChild()
+        target: middleNode
       })
     },
     deleteRow(row) {
-      if(this.rows.length > 1) {
+      if(this.getRowCount() > 1) {
         boundaryDetection.removeBoundary(row.uid)
-        let idx = this.rows.indexOf(row)
+        let idx = this.getRowIndex(row)
         this.rows.splice(idx, 1)
         if(idx > 0) idx -= 1
-        let lastChild = this.rows[idx].getLastChild()
+        let lastChild = this.getRow(idx).getLastChild()
         if(!NodeManager.isTextNode(lastChild)) {
           lastChild = NodeManager.createNode(NodeManager.TextNode)
-          this.rows[idx].appendChild(lastChild)
+          this.getRow(idx).appendChild(lastChild)
         }
         this.$nextTick(() => {
-          helper.setElementFocus(lastChild.uid, lastChild.value.length)
+          helper.setElementFocus(lastChild.uid)
         })
       }
     },
@@ -129,6 +163,13 @@ export default {
     },
     getRowCount() {
       return this.rows.length
+    },
+    getBelongRow(node) {
+      let parent = node.parent
+      while(!isRowContainer(parent)) {
+        parent = parent.parent
+      }
+      return parent
     },
     // 去除首尾多余空文本节点
     trimLine(nodes) {
@@ -257,6 +298,118 @@ export default {
           target: mathNode
         })
       })
+    },
+    getNextTextNode(node) {
+      const getNextChildTextNode = (parent) => {
+        const children = parent.children;
+        if(children && children.length > 0) {
+          const subNode = children[0]
+          if(NodeManager.isTextNode(subNode)) {
+            return subNode
+          } else {
+            return getNextChildTextNode(subNode)
+          }
+        }
+      }
+      const getNextSiblingTextNode = (node) => {
+        let children = node.parent.children
+        let nodeIndex = children.indexOf(node)
+        while(nodeIndex < children.length - 1) {
+          nodeIndex += 1
+          let nextNode = children[nodeIndex]
+          if(NodeManager.isTextNode(nextNode)) {
+            return nextNode
+          } else {
+            nextNode = getNextChildTextNode(nextNode)
+            if(NodeManager.isTextNode(nextNode)) {
+              return nextNode
+            }
+          }
+        }
+        if(node.parent.parent) {
+          return getNextSiblingTextNode(node.parent)
+        }
+      }
+      let nextTextNode
+      if(NodeManager.isTextNode(node)) {
+        nextTextNode = getNextSiblingTextNode(node)
+      } else {
+        nextTextNode = getNextChildTextNode(node)
+        if(!nextTextNode) {
+          nextTextNode = getNextSiblingTextNode(node)
+        }
+      }
+      if(nextTextNode) {
+        return nextTextNode
+      } else {
+        let row = this.getBelongRow(node)
+        let rowIndex = this.getRowIndex(row)
+        if(rowIndex < this.getRowCount() - 1) {
+          row = this.getRow(rowIndex + 1)
+          let firstChild = row.getFirstChild()
+          if(NodeManager.isTextNode(firstChild)) {
+            return firstChild
+          } else {
+            return this.getNextTextNode(firstChild)
+          }
+        }
+      }
+    },
+    getPrevTextNode(node) {
+      const getPrevChildTextNode = (parent) => {
+        const children = parent.children;
+        if(children && children.length > 0) {
+          const subNode = children[children.length - 1]
+          if(NodeManager.isTextNode(subNode)) {
+            return subNode
+          } else {
+            return getPrevChildTextNode(subNode)
+          }
+        }
+      }
+      const getPrevSiblingTextNode = (node) => {
+        let children = node.parent.children
+        let nodeIndex = children.indexOf(node)
+        while(nodeIndex > 0) {
+          nodeIndex -= 1
+          let prevNode = children[nodeIndex]
+          if(NodeManager.isTextNode(prevNode)) {
+            return prevNode
+          } else {
+            prevNode = getPrevChildTextNode(prevNode)
+            if(NodeManager.isTextNode(prevNode)) {
+              return prevNode
+            }
+          }
+        }
+        if(node.parent.parent) {
+          return getPrevSiblingTextNode(node.parent)
+        }
+      }
+      let prevTextNode
+      if(NodeManager.isTextNode(node)) {
+        prevTextNode = getPrevSiblingTextNode(node)
+      } else {
+        prevTextNode = getPrevChildTextNode(node)
+        if(!prevTextNode) {
+          prevTextNode = getPrevSiblingTextNode(node)
+        }
+      }
+      if(prevTextNode) {
+        return prevTextNode
+      } else {
+        let row = this.getBelongRow(node)
+        let rowIndex = this.getRowIndex(row)
+        if(rowIndex > 0) {
+          row = this.getRow(rowIndex - 1)
+          let lastChild = row.getLastChild()
+          if(NodeManager.isTextNode(lastChild)) {
+            return lastChild
+          } else {
+            return this.getPrevTextNode(lastChild)
+          }
+        }
+      }
     }
   }
 }
@@ -266,5 +419,7 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 </style>

@@ -34,14 +34,13 @@ export default {
     padding: 0;
     list-style: none;
     .math-toolbar-item {
-      height: 40px;
-      width: 100px;
-      line-height: 40px;
-      text-align: center;
-      font-size: 14px;
+      padding: 5px;
+      font-size: 12px;
       cursor: pointer;
-      border-right: 1px solid @border-color;
+      border: 1px solid #d3d3d3;
+      border-radius: 4px;
       display: inline-block;
+      margin: 5px;
     }
   }
 </style>

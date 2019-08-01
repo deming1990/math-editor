@@ -1,15 +1,18 @@
 <template>
   <div class="math-node-panel">
-    <div v-for="node in nodeList" 
-      class="math-node-item"
-      :key="node.compType"
-      @click="onNodeClick(node.compType)">
-      <template>
-        <img v-if="node.iconImage" :src="node.iconImage" />
-      </template>
-      <template v-if="node.iconText">
-        {{node.iconText}}
-      </template>
+    <div class="close" @click="onClose">x</div>
+    <div class="math-node-list">
+      <div v-for="node in nodeList" 
+        class="math-node-item"
+        :key="node.compType"
+        @click="onNodeClick(node.compType)">
+        <template>
+          <img v-if="node.iconImage" :src="node.iconImage" />
+        </template>
+        <template v-if="node.iconText">
+          {{node.iconText}}
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -17,6 +20,7 @@
 import {MATH_NODES} from '../constants'
 
 export default {
+  name: 'math-node-panel',
   props: {
     category: String
   },
@@ -27,7 +31,10 @@ export default {
   },
   methods: {
     onNodeClick(compType) {
-      this.onMathNodeSelect && this.onMathNodeSelect(compType)
+      this.$emit('mathNodeSelect', compType)
+    },
+    onClose() {
+      this.$emit('close')
     }
   }
 }
@@ -37,26 +44,45 @@ export default {
 
   .math-node-panel {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    top: 70%;
     right: 0;
-    height: 200px;
-    border-top: 1px solid @border-color;
-    overflow: auto;
+    left: 0;
+    bottom: 0;
+    padding-top: 15px;
+    padding-right: 15px;
+    border-top: 1px solid #d3d3d3;
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 15px;
+      width: 15px;
+      font-size: 14px;
+      line-height: 15px;
+      text-align: center;
+      color: #333;
+      cursor: pointer;
+    }
+    .math-node-list {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
     .math-node-item {
       height: 30px;
       width: 30px;
       float: left;
-      padding: 5px;
-      border-right: 1px solid @border-color;
-      border-bottom: 1px solid @border-color;
-      font-size: @text-font-size;
+      margin: 5px;
+      border: 1px solid #d3d3d3;
+      font-size: 16px;
       line-height: 30px;
       text-align: center;
       cursor: pointer;
       img {
-        height: 25px;
-        width: 25px;
+        height: 100%;
+        width: 100%;
       }
     }
   }

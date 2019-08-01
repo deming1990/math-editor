@@ -1,14 +1,15 @@
 <template>
-  <div class="text-node">
+  <div :class="{'text-node': true, 'no-content': noContent}">
     <input type="text"
+      :disabled="isPreviewMode"
       :id="model.uid"
       :value="model.value"
       autocomplete="off"
       @blur="onBlur"
       @focus="onFocus"
-      @keyup="onKeyUp"
+      @keydown="onKeyDown"
       @input="onInput">
-    <div class="hidden">{{model.value}}</div>
+    <span class="hidden">{{model.value}}</span>
   </div>
 </template>
 <script>
@@ -18,8 +19,14 @@ import compMixin from './component-mixin'
 export default {
   name: NODE_TYPES.TEXT_NODE,
   mixins: [compMixin],
+  inject: ['isPreviewMode'],
   props: {
     model: Object
+  },
+  computed: {
+    noContent() {
+      return this.model.value === ''
+    }
   },
   methods: {
     onBlur(evt) {
@@ -28,7 +35,8 @@ export default {
     onFocus(evt) {
       this.dispatchCurrentFocusNode(evt.target.selectionStart)
     },
-    onKeyUp(evt) {
+    onKeyDown(evt) {
+      const cursorPosition = evt.target.selectionStart
       switch(evt.keyCode) {
         // BackSpace
         case 8:
@@ -37,6 +45,22 @@ export default {
         // Enter 
         case 13:
           this.dispatchLineFeed(evt)
+          break
+        // left
+        case 37:
+          this.dispatchMoveCursor('left', cursorPosition)
+          break
+        // right
+        case 39:
+          this.dispatchMoveCursor('right', cursorPosition)
+          break
+        // up
+        case 38:
+          this.dispatchMoveCursor('up', cursorPosition)
+          break
+        // down
+        case 40:
+          this.dispatchMoveCursor('down', cursorPosition)
           break
       }
     },
@@ -67,6 +91,14 @@ export default {
         node: this.model,
         cursorPosition
       })
+    },
+    dispatchMoveCursor(direction, cursorPosition) {
+      if((direction === 'right' && cursorPosition < this.model.value.length)
+        || (direction === 'left' && cursorPosition > 0)) return;
+      this.$dispatch('.row-container', 'moveCursor', {
+        node: this.model,
+        direction
+      })
     }
   }
 }
@@ -75,28 +107,33 @@ export default {
   @import '../styles/variables.less';
   .text-node {
     position: relative;
+    height: @box-size;
     width: fit-content;
     display: inline-block;
+    &.no-content {
+      min-width: 1px;
+    }
     input {
       position: absolute;
       top: 0px;
       left: 0px;
-      height: 100%;
+      height: @normal-input-height;
       width: 100%;
       padding: 0;
       margin: 0;
-      font-size: @text-font-size;
+      line-height: @normal-input-height;
+      font-size: @normal-font-size;
       border: none;
       outline: none;
       z-index: 10;
+      font-family: @text-font-family;
     }
     .hidden {
-      height: @box-size;
-      margin: 0 2px;
-      line-height: @box-size;
-      font-size: @text-font-size;
+      height: @normal-input-height;
+      line-height: @normal-input-height;
+      font-size: @normal-font-size;
+      font-family: @text-font-family;
       visibility: hidden;
-      display: inline-block;
     }
   }
 </style>
