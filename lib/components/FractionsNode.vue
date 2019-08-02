@@ -42,6 +42,8 @@ export default {
   @import "../styles/variables.less";
 
   .fractions-node {
+    position: relative;
+    height: fit-content;
     width: fit-content;
     margin: 0 5px;
     display: inline-flex;

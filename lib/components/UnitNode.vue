@@ -21,6 +21,7 @@ export default {
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .unit-node {
+    position: relative;
     display: inline-flex;
     align-items: center;
     .unit {

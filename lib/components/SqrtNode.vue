@@ -37,7 +37,7 @@
 <script>
 import {NODE_TYPES} from '../constants'
 const SLOT_VALUE = 'value'
-const SLOT_NTH = 'nth'
+const SLOT_SUPER_SCRIPT = 'super_script'
 export default {
   name: NODE_TYPES.SQRT_NODE,
   props: {
@@ -48,7 +48,7 @@ export default {
       return this.model.children.filter(item => item.slot === SLOT_VALUE)
     },
     nths() {
-      return this.model.children.filter(item => item.slot === SLOT_NTH)
+      return this.model.children.filter(item => item.slot === SLOT_SUPER_SCRIPT)
     }
   }
 }
@@ -68,8 +68,9 @@ export default {
 <style lang="less" scoped>
   .sqrt-node {
     position: relative;
+    height: fit-content;
+    min-height: 35px;
     display: inline-flex;
-    align-items: flex-end;
   }
   .sqrt-node-nth {
     position: relative;
@@ -77,6 +78,7 @@ export default {
     transform: translate(10px, 0);
     display: inline-flex;
     margin-bottom: 6px;
+    align-self: flex-start;
   }
   .sqrt-node-value {
     position: relative;
@@ -84,6 +86,7 @@ export default {
     margin-left: 21px;
     display: inline-flex;
     align-items: center;
+    align-self: flex-end;
     .sqrt-node-part1 {
       position: absolute;
       left: -20px;

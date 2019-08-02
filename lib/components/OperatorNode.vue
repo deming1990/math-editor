@@ -21,6 +21,7 @@ export default {
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .operator-node {
+    position: relative;
     height: @box-size;
     padding: 0 5px;
     line-height: @box-size;

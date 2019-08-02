@@ -67,11 +67,16 @@ export default {
 </script>
 <style lang="less" scoped>
 @border-color: #d3d3d3;
-
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 .container {
   position: relative;
-  width: 900px;
-  height: 600px;
+  width: 1000px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   border: 1px solid @border-color;

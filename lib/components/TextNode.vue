@@ -133,6 +133,7 @@ export default {
       line-height: @normal-input-height;
       font-size: @normal-font-size;
       font-family: @text-font-family;
+      white-space: pre;
       visibility: hidden;
     }
   }

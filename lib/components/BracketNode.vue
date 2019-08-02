@@ -51,8 +51,8 @@ export default {
   @import '../styles/variables.less';
   .bracket-node {
     position: relative;
+    height: fit-content;
     margin: 0 8px;
-    padding-top: 4px;
     display: inline-flex;
     align-items: center;
     font-size: @normal-font-size;
@@ -63,8 +63,8 @@ export default {
       content: "";
       position: absolute;
       top: 0;
+      bottom: 0;
       width: 6px;
-      height: 100%;
     }
     &.left-bracket:before, 
     &.left-absolute:before {

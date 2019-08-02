@@ -274,7 +274,7 @@ export default {
         if(currentCursorPosition === 0) {
           parent.children.splice(index, 0, mathNode)
         } else if(currentCursorPosition === currentFocusNode.value.length) {
-          parent.children.push(mathNode)
+          parent.children.splice(index + 1, 0, mathNode)
         } else {
           const beforeTextNode = NodeManager.createNode(NodeManager.TextNode)
           const afterTextNode = NodeManager.createNode(NodeManager.TextNode)

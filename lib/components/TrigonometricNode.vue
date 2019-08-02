@@ -22,6 +22,7 @@ export default {
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .trigonometric-node {
+    position: relative;
     display: inline-flex;
     align-items: center;
     .trigonometric {

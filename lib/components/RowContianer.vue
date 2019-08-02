@@ -3,21 +3,31 @@
     :id="model.uid"
     @click="onRowContainerClick" 
     ref="rowContainer">
-    <basic-node 
+    <basic-node
       v-for="child in model.children"
       :model="child"
-      :key="child.uid" />
+      :key="child.uid"
+      :ref="'basic-node-' + child.uid" />
   </div>
 </template>
 <script>
 import compMixin from './component-mixin'
 import NodeManager from '../models/NodeManager'
+import RowContianer from '../models/RowContianer'
+
+const isRowContianer = (obj) => obj instanceof RowContianer
 
 export default {
   name: 'row-container',
   mixins: [compMixin],
   props: {
     model: Object
+  },
+  mounted() {
+    this.addFormatListener(this.$refs.rowContainer)
+  },
+  destroyed() {
+    this.removeFormatListener()
   },
   methods: {
     onRowContainerClick(evt) {
@@ -32,6 +42,6 @@ export default {
     padding: 2.5px 5px 2.5px 5px;
     font-size: 15px;
     display: flex;
-    align-items: center;
+    // align-items: center;
   }
 </style>
