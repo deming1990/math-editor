@@ -1,21 +1,20 @@
 <template>
   <div :id="model.uid" class="fractions-node">
-    <div class="numerator">
-      <basic-node v-for="item in numerator" :model="item" :key="item.uid" />
+    <div class="superValue">
+      <basic-node v-for="item in superValue" :model="item" :key="item.uid" />
     </div>
     <div class="split"></div>
-    <div class="denominator">
-      <basic-node v-for="item in denominator" :model="item" :key="item.uid" />
+    <div class="subValue">
+      <basic-node v-for="item in subValue" :model="item" :key="item.uid" />
     </div>
   </div>  
 </template>
 <script>
-import {NODE_TYPES} from '../constants'
-
-// 分子
-const SLOT_NUMERATOR = 'numerator'
-// 分母
-const SLOT_DENOMINATOR = 'denominator'
+import {
+  NODE_TYPES,
+  SLOT_SUPER_VALUE,
+  SLOT_SUB_VALUE
+} from '../constants'
 
 export default {
   name: NODE_TYPES.FRACTIONS_NODE,
@@ -23,17 +22,17 @@ export default {
     model: Object
   },
   computed: {
-    numerator() {
-      return this.model.children.filter(item => item.slot === SLOT_NUMERATOR)
+    superValue() {
+      return this.model.children.filter(item => item.slot === SLOT_SUPER_VALUE)
     },
-    denominator() {
-      return this.model.children.filter(item => item.slot === SLOT_DENOMINATOR)
+    subValue() {
+      return this.model.children.filter(item => item.slot === SLOT_SUB_VALUE)
     },
-    hasNumerator() {
-      return this.numerator.length > 1 || this.numerator[0].value !== ''
+    hasSuperValue() {
+      return this.superValue.length > 1 || this.superValue[0].value !== ''
     },
-    hasDenominator() {
-      return this.denominator.length > 1 || this.denominator[0].value !== ''
+    hasSubValue() {
+      return this.subValue.length > 1 || this.subValue[0].value !== ''
     }
   }
 }
@@ -55,7 +54,7 @@ export default {
       background: @border-color;
       margin: 2px;
     }
-    .numerator, .denominator {
+    .superValue, .subValue {
       padding: 0 5px;
     }
   }
