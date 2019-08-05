@@ -52,7 +52,7 @@ export default {
     display: inline-flex;
     min-height: @normal-number-node-height;
     min-width: @normal-number-node-width;
-    border: 2px dashed @border-color;
+    border: 1px dashed @border-color;
     box-sizing: border-box;
     &.has-number {
       border: none;

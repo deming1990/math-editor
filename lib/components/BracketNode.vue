@@ -1,6 +1,23 @@
 <template>
-  <div :id="model.uid" :class="bracketStyles">
-    <basic-node v-for="item in model.children" :model="item" :key="item.uid" />
+  <div class="bracket-container">
+    <div :id="model.uid" :class="bracketStyles" v-if="!isCurlyBrace">
+      <div class="bracket-wrapper">
+        <basic-node v-for="item in model.children" :model="item" :key="item.uid" />
+      </div>
+    </div>
+    <div :id="model.uid" class="brace-node" v-if="isCurlyBrace">
+      <div class="curly-brace">
+        <div class="brace top-half"></div>
+        <div class="brace bottom-half"></div>
+      </div>
+      <div style="margin-right: -6px;">
+        <basic-node v-for="item in model.children" :model="item" :key="item.uid" />
+      </div>
+      <div class="curly-brace right">
+        <div class="brace top-half"></div>
+        <div class="brace bottom-half"></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -12,36 +29,24 @@ export default {
     model: Object
   },
   computed: {
-    hasLeft() {
-      return [
-        NODE_TYPES.BRACKET_NODE,
-        NODE_TYPES.LEFT_BRACKET_NODE,
-        NODE_TYPES.ABSOLUTE_NODE,
-        NODE_TYPES.LEFT_ABSOLUTE_NODE
-      ].includes(this.model.compType)
-    },
-    hasRight() {
-      return [
-        NODE_TYPES.BRACKET_NODE,
-        NODE_TYPES.RIGHT_BRACKET_NODE,
-        NODE_TYPES.ABSOLUTE_NODE,
-        NODE_TYPES.RIGHT_ABSOLUTE_NODE
-      ].includes(this.model.compType)
+    isBracket() {
+      return NODE_TYPES.BRACKET_NODE === this.model.compType
     },
     isAbsolute() {
-      return [
-        NODE_TYPES.ABSOLUTE_NODE,
-        NODE_TYPES.LEFT_ABSOLUTE_NODE,
-        NODE_TYPES.RIGHT_ABSOLUTE_NODE
-      ].includes(this.model.compType)
+      return NODE_TYPES.ABSOLUTE_NODE === this.model.compType
+    },
+    isSquareBracket() {
+      return NODE_TYPES.SQUARE_BRACKET_NODE === this.model.compType
+    },
+    isCurlyBrace() {
+      return NODE_TYPES.CURLY_BRACE_NODE === this.model.compType
     },
     bracketStyles() {
       return {
         'bracket-node': true,
-        'left-bracket': this.hasLeft && !this.isAbsolute,
-        'right-bracket': this.hasRight && !this.isAbsolute,
-        'left-absolute': this.hasLeft && this.isAbsolute,
-        'right-absolute': this.hasRight && this.isAbsolute
+        'bracket': this.isBracket,
+        'absolute': this.isAbsolute,
+        'square-bracket': this.isSquareBracket
       }
     }
   }
@@ -49,38 +54,140 @@ export default {
 </script>
 <style lang="less" scoped>
   @import '../styles/variables.less';
-  .bracket-node {
+  .bracket-container {
     position: relative;
     height: fit-content;
+  }
+  .bracket-node {
+    position: relative;
     margin: 0 8px;
     display: inline-flex;
     align-items: center;
     font-size: @normal-font-size;
-    &.left-bracket:before, 
-    &.right-bracket:after,
-    &.left-absolute:before,
-    &.right-absolute:after {
+    &.bracket:before, 
+    &.bracket:after,
+    &.absolute:before,
+    &.absolute:after,
+    &.square-bracket:before,
+    &.square-bracket:after {
       content: "";
       position: absolute;
       top: 0;
       bottom: 0;
       width: 6px;
     }
-    &.left-bracket:before, 
-    &.left-absolute:before {
+    &.bracket:before, 
+    &.absolute:before,
+    &.square-bracket:before {
         left: -6px;
         border-left: 2px solid #000;
         border-radius: 50%;
     }
-    &.right-bracket:after,
-    &.right-absolute:after  {
+    &.bracket:after,
+    &.absolute:after,
+    &.square-bracket:after {
         right: -6px;
         border-right: 2px solid #000;
         border-radius: 50%;
     }
-    &.left-absolute:before,
-    &.right-absolute:after {
+    &.absolute:before,
+    &.absolute:after,
+    &.square-bracket:before,
+    &.square-bracket:after {
       border-radius: 0;
+    }
+    &.square-bracket:before,
+    &.square-bracket:after {
+      border: 2px solid #000;
+    }
+    .bracket-wrapper {
+      position: relative;
+      padding: 0 4px;
+    }
+    &.square-bracket {
+      .bracket-wrapper {
+        &.bracket-wrapper:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -1px;
+          bottom: 0;
+          width: 5px;
+          background: #fff;
+          z-index: 5;
+        }
+        &.bracket-wrapper:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: -1px;
+          bottom: 0;
+          width: 5px;
+          background: #fff;
+          z-index: 5;
+        }
+      } 
+    }
+  }
+  .brace-node {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    .curly-brace {
+      position: relative;
+      width: 10px;
+      flex: 1;
+      -webkit-writing-mode: vertical-rl;
+      writing-mode: tb-rl;
+    }
+    .curly-brace.right {
+      margin-left: 5px;
+      transform: rotate(180deg)
+    }
+    .brace {
+      margin: 10% 0;
+      height: 30%;
+      width: 5px;
+      &.top-half {
+        border-left: 2px solid #000;
+        margin-left: -2px;
+      }
+      &.top-half:before {
+        top: 0;
+        left: 3px;
+        border-left: 2px solid #000;
+        border-top-left-radius: 20px;
+      }
+      &.top-half:after {
+        left: -2px;
+        bottom: 50%;
+        border-right: 2px solid #000;
+        border-bottom-right-radius: 20px;
+      }
+      &.bottom-half {
+        margin-top: 60%;
+        border-right: 2px solid #000;
+      }
+      &.bottom-half:before {
+        left: -2px;
+        bottom: 40%;
+        border-right: 2px solid #000;
+        border-top-right-radius: 20px;
+      }
+      &.bottom-half:after {
+        left: 3px;
+        bottom: 0;
+        border-left: 2px solid;
+        border-bottom-left-radius: 20px;
+      }
+    }
+    .brace:before,
+    .brace:after {
+      content: "";
+      height: 10%;
+      width: 5px;
+      position: absolute;
+      display: block;
     }
   }
 </style>

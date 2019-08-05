@@ -1,5 +1,6 @@
 <template>
-  <span :id="model.uid" class="operator-node">
+  <span :id="model.uid" 
+    :class="{'operator-node': true, 'no-padding': noPadding}">
     {{OPERATOR_CHARS[model.compType]}}
   </span>
 </template>
@@ -15,6 +16,13 @@ export default {
     return {
       OPERATOR_CHARS
     }
+  },
+  computed: {
+    noPadding() {
+      return [
+        NODE_TYPES.ANGLE_NODE
+      ].includes(this.model.compType)
+    }
   }
 }
 </script>
@@ -28,5 +36,8 @@ export default {
     font-size: @normal-font-size;
     font-family: @text-font-family;
     display: inline-flex;
+    &.no-padding {
+      padding: 0;
+    }
   }
 </style>
