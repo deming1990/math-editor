@@ -51,6 +51,7 @@ export default {
     padding-top: 15px;
     padding-right: 15px;
     border-top: 1px solid #d3d3d3;
+    background: #fff;
     .close {
       position: absolute;
       top: 0;

@@ -34,7 +34,8 @@
   </div>
 </template>
 <script>
-import MathEditor from '../lib/MathEditor.vue'
+import MathEditor from '../dist/math-editor'
+import '../dist/math-editor.css'
 
 const TABS = [
   {id: 1, name: '编辑模式'},

@@ -1,9 +1,9 @@
 <template>
-  <div class="sqrt-node" :id="model.uid" :style="sqrtStyle" ref="sqrtNode">
-    <div class="sqrt-node-nth" ref="sqrtNodeNth">
-      <basic-node v-for="item in nths" :model="item" :key="item.uid" />
+  <div class="sqrt-node" :id="model.uid" ref="sqrtNode">
+    <div class="sqrt-node-nth" ref="sqrtNodeNth" v-if="hasSupers">
+      <basic-node v-for="item in supers" :model="item" :key="item.uid" />
     </div>
-    <div class="sqrt-node-value" ref="sqrtNodeValue">
+    <div class="sqrt-node-value" ref="sqrtNodeValue" :style="sqrtValueStyle">
       <div class="sqrt-node-part1">
         <svg style="position: absolute;top: 0;left: 0;height: 100%;width: 100%;" viewBox="0 0 74.842293 127.48769" preserveAspectRatio="none">
           <defs id="defs4">
@@ -41,68 +41,71 @@ import {
   SLOT_SUB_SCRIPT,
   SLOT_VALUE
 } from '../constants'
+import compMixin from './component-mixin'
 export default {
   name: NODE_TYPES.SQRT_NODE,
+  mixins: [compMixin],
   props: {
     model: Object
   },
   data() {
     return {
-      sqrtStyle: {
-        height: 30 + 'px',
-        width: 30 + 'px'
-      }
+      sqrtValueStyle: {}
     }
   },
   computed: {
     values() {
       return this.model.children.filter(item => item.slot === SLOT_VALUE)
     },
-    nths() {
+    supers() {
       return this.model.children.filter(item => item.slot === SLOT_SUPER_SCRIPT)
+    },
+    hasSupers() {
+      return this.supers.length > 0
     }
   },
   mounted() {
-    this.addSqrtNodeNthListener()
+    this.hasSupers && this.addSuperScriptObserver()
   },
   destroyed() {
-    this.removeSqrtNodeNthListener()
+    this.hasSupers && this.removeSuperScriptObserver()
   },
   methods: {
-    addSqrtNodeNthListener() {
-      this.observer = new MutationObserver((mutationsList, observer) => {
-        const modified = mutationsList.filter((item) => ['attributes', 'childList', 'subtree'].includes(item.type)).length > 0
-        if(modified) {
-          const sqrtNodeNthHeight = parseFloat(getComputedStyle(this.$refs.sqrtNodeNth).height)
-          const sqrtNodeValueHeight = parseFloat(getComputedStyle(this.$refs.sqrtNodeValue).height)
-          const sqrtNodeNthWidth = parseFloat(getComputedStyle(this.$refs.sqrtNodeNth).width)
-          const sqrtNodeValueWidth = parseFloat(getComputedStyle(this.$refs.sqrtNodeValue).width)
-          this.sqrtStyle.height = `${sqrtNodeNthHeight + sqrtNodeValueHeight}px`
-          this.sqrtStyle.width = `${sqrtNodeNthWidth + sqrtNodeValueWidth}px`
-          console.log('xxxxx: ', this.sqrtStyle.height, this.sqrtStyle.width)
-        }
-      });
-      this.observer.observe(this.$refs.sqrtNode, {
-        attributes: true, 
-        childList: true, 
-        subtree: true
-      })
+    resizeSqrtValuePosition() {
+      let height = parseFloat(getComputedStyle(this.$refs.sqrtNodeNth).height)
+      height -= 10
+      this.$set(this.sqrtValueStyle, 'marginTop', `${height}px`)
     },
-    removeSqrtNodeNthListener() {
-      this.observer.disconnect();
+    addSuperScriptObserver() {
+      this.superScriptObserver = this.addMutationObserver(this.$refs.sqrtNodeNth, this.resizeSqrtValuePosition)
+    },
+    removeSuperScriptObserver() {
+      this.removeMutationObserver(this.superScriptObserver)
     }
   }
 }
 </script>
 <style lang="less">
+  @import '../styles/variables.less';
   .sqrt-node-nth {
+    .number-node {
+      min-height: @small-number-node-height!important;
+      min-width: @small-number-node-width!important;
+      &.has-number {
+        min-width: 0;
+      }
+    }
+    .text-node {
+      height: @small-input-height!important;
+    }
     input {
-      font-size: 12px!important;
+      height: @small-input-height!important;
+      font-size: @small-font-size!important;
     }
     .hidden {
-      height: 14px!important;
-      line-height: 14px!important;
-      font-size: 12px!important;
+      height: @small-input-height!important;
+      line-height: @small-input-height!important;
+      font-size: @small-font-size!important;
     }
   }
 </style>
@@ -113,16 +116,13 @@ export default {
     display: inline-flex;
   }
   .sqrt-node-nth {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     height: fit-content;
+    margin-right: -17px;
     display: inline-flex;
   }
   .sqrt-node-value {
-    position: absolute;
-    bottom: 0;
-    height: fit-content;
+    position: relative;
     margin-left: 21px;
     display: inline-flex;
     align-items: center;

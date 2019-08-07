@@ -1,30 +1,56 @@
 {
   "name": "vue-math-editor",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "基于vue的数学公式编辑器",
+  "keywords": [
+    "vue",
+    "vue component",
+    "math",
+    "editor"
+  ],
+  "main": "./dist/math-editor.js",
+  "author": "kongdeming",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --config ./build/config.dev.js"
+    "start": "./node_modules/.bin/webpack-dev-server --config ./build/config.dev.js",
+    "build": "./node_modules/.bin/webpack-cli --config ./build/config.pro.js"
   },
   "dependencies": {
     "JSON2": "^0.1.0",
+    "vue": "^2.6.10"
+  },
+  "peerDependencies": {
     "vue": "^2.6.10"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.5.4",
+    "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.0.0",
+    "cssnano": "^4.1.10",
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-url": "^8.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^2.0.1",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2"
-  }
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.1"
+  },
+  "browserslist": [
+    "> 3%",
+    "Android >= 4",
+    "iOS >= 8"
+  ]
 }

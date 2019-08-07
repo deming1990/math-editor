@@ -22,6 +22,7 @@ export default {
   @import '../styles/variables.less';
   .unit-node {
     position: relative;
+    height: fit-content;
     display: inline-flex;
     align-items: center;
     .unit {

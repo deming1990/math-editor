@@ -271,27 +271,32 @@ export default {
         const index = parent.children.indexOf(currentFocusNode)
         mathNode.parent = parent
         mathNode.slot = currentFocusNode.slot
+        const beforeTextNode = NodeManager.createNode(NodeManager.TextNode)
+        const afterTextNode = NodeManager.createNode(NodeManager.TextNode)
+        beforeTextNode.parent = parent
+        beforeTextNode.slot = currentFocusNode.slot
+        afterTextNode.parent = parent
+        afterTextNode.slot = currentFocusNode.slot
         if(currentCursorPosition === 0) {
-          parent.children.splice(index, 0, mathNode)
+          parent.children.splice(index, 0, beforeTextNode, mathNode, afterTextNode)
         } else if(currentCursorPosition === currentFocusNode.value.length) {
-          parent.children.splice(index + 1, 0, mathNode)
+          parent.children.splice(index + 1, 0, beforeTextNode, mathNode, afterTextNode)
         } else {
-          const beforeTextNode = NodeManager.createNode(NodeManager.TextNode)
-          const afterTextNode = NodeManager.createNode(NodeManager.TextNode)
-          
           beforeTextNode.value = currentFocusNode.value.substring(0, currentCursorPosition)
-          beforeTextNode.parent = parent
-          beforeTextNode.slot = currentFocusNode.slot
-          
           afterTextNode.value = currentFocusNode.value.substring(currentCursorPosition)
-          afterTextNode.parent = parent
-          afterTextNode.slot = currentFocusNode.slot
-          
           parent.children.splice(index, 1, beforeTextNode, mathNode, afterTextNode)
         }
+        this.$nextTick(() => {
+          helper.setElementFocus(afterTextNode.uid, 0)
+        })
       } else {
         const lastRow = this.getLastRow()
-        lastRow.children.push(mathNode)
+        const afterTextNode = NodeManager.createNode(NodeManager.TextNode)
+        afterTextNode.parent = lastRow
+        lastRow.children.push(mathNode, afterTextNode)
+        this.$nextTick(() => {
+          helper.setElementFocus(afterTextNode.uid, 0)
+        })
       }
       this.$nextTick(() => {
         this.onBoundaryDetection({

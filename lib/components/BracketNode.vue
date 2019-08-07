@@ -63,7 +63,6 @@ export default {
     margin: 0 8px;
     display: inline-flex;
     align-items: center;
-    font-size: @normal-font-size;
     &.bracket:before, 
     &.bracket:after,
     &.absolute:before,
@@ -89,6 +88,10 @@ export default {
         right: -6px;
         border-right: 2px solid #000;
         border-radius: 50%;
+    }
+    &.bracket:before, 
+    &.bracket:after {
+      width: 10px;
     }
     &.absolute:before,
     &.absolute:after,

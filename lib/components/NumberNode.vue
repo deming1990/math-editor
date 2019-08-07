@@ -1,6 +1,8 @@
 <template>
   <div :id="model.uid" 
-    :class="['number-node', hasNumber ? 'has-number' : '']" @click="onClick" ref="numberNode">
+    :class="['number-node', hasNumber ? 'has-number' : '']"
+    :style="nodeStyles"
+    @click="onClick" ref="numberNode">
     <basic-node v-for="item in model.children" 
       :model="item"
       :key="item.uid"
@@ -15,23 +17,25 @@ import compMixin from './component-mixin'
 export default {
   name: NODE_TYPES.NUMBER_NODE,
   mixins: [compMixin],
+  inject: ['isPreviewMode'],
   props: {
     model: Object
   },
   computed: {
-    hasNumber(){
+    hasNumber() {
       return this.model.children[0].value !== ''
+    },
+    nodeStyles() {
+      return this.isPreviewMode 
+        ? {border: 'none!important', minWidth: '0'}
+        : {}
     }
   },
   mounted() {
-    // if(NodeManager.isFractionsNode(this.model.parent)) {
-      this.addFormatListener(this.$refs.numberNode)
-    // }
+    this.addFormatListener(this.$refs.numberNode)
   },
   destroyed() {
-    // if(NodeManager.isFractionsNode(this.model.parent)) {
-      this.removeFormatListener()
-    // }
+    this.removeFormatListener()
   },
   methods: {
     onClick(evt) {

@@ -5,7 +5,7 @@
       </math-toolbar>
     </div>
     <div class="math-editor-body" ref="mathEditorBody">
-      <math-textarea ref="mathTextarea"></math-textarea>
+      <math-textarea ref="mathTextarea" :class="{'fit-panel': panelVisible}"></math-textarea>
       <math-node-panel v-if="panelVisible" 
         :category="currCategory" 
         @mathNodeSelect="onMathNodeSelect"
@@ -32,6 +32,7 @@ import TrigonometricNode from './components/TrigonometricNode.vue'
 import BracketNode from './components/BracketNode.vue'
 import SqrtNode from './components/SqrtNode.vue'
 import UnitNode from './components/UnitNode.vue'
+import SquareNode from './components/SquareNode.vue'
 
 Vue.component(RowContainer.name, RowContainer)
 Vue.component(NODE_TYPES.BASIC_NODE, BasicNode)
@@ -51,12 +52,13 @@ Vue.component(NODE_TYPES.EQUAL_NODE, OperatorNode)
 Vue.component(NODE_TYPES.UNEQUAL_NODE, OperatorNode)
 Vue.component(NODE_TYPES.PARALLEL_NODE, OperatorNode)
 Vue.component(NODE_TYPES.ANGLE_NODE, OperatorNode)
-Vue.component(NODE_TYPES.DECIMAL_POINT_NODE, OperatorNode)
-Vue.component(NODE_TYPES.COLON_NODE, OperatorNode)
-Vue.component(NODE_TYPES.SEMICOLON_NODE, OperatorNode)
 Vue.component(NODE_TYPES.PERP_NODE, OperatorNode)
 Vue.component(NODE_TYPES.SWUNG_DASH_NODE, OperatorNode)
 Vue.component(NODE_TYPES.EQUAL_OR_APPROXIMATELY_EQUAL_NODE, OperatorNode)
+Vue.component(NODE_TYPES.TRIANGLE_NODE, OperatorNode)
+Vue.component(NODE_TYPES.PARALLELOGRAM_NODE, OperatorNode)
+Vue.component(NODE_TYPES.ELLIPSIS_NODE, OperatorNode)
+Vue.component(NODE_TYPES.PI_NODE, OperatorNode)
 Vue.component(NODE_TYPES.SIN_NODE, TrigonometricNode)
 Vue.component(NODE_TYPES.COS_NODE, TrigonometricNode)
 Vue.component(NODE_TYPES.TAN_NODE, TrigonometricNode)
@@ -67,6 +69,10 @@ Vue.component(NODE_TYPES.ABSOLUTE_NODE, BracketNode)
 Vue.component(NODE_TYPES.SQRT_NODE, SqrtNode)
 Vue.component(NODE_TYPES.DEGREE_NODE, UnitNode)
 Vue.component(NODE_TYPES.PRECENT_NODE, UnitNode)
+Vue.component(NODE_TYPES.SQUARE_NODE, SquareNode)
+Vue.component(NODE_TYPES.SUB_SCRIPT_NODE, SquareNode)
+Vue.component(NODE_TYPES.SUPER_SCRIPT_AND_SUB_SCRIPT_NODE, SquareNode)
+Vue.component(NODE_TYPES.SINGLE_SQRT_NODE, SqrtNode)
 
 export default {
   components: {
@@ -127,6 +133,18 @@ export default {
   }
 }
 </script>
+<style lang="less">
+  @font-face {
+    font-family: 'STIX2Text-Italic';
+    src: url('./assets/font/STIX2Text-Italic.woff') format('woff'),
+         url('./assets/font/STIX2Text-Italic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: Han;
+    font-style: italic;
+    src: local("PingFang SC"), local("Microsoft YaHei"), local("Source Han Sans CN");
+  }
+</style>
 <style lang="less" scoped>
   @border-color: #d3d3d3;
 
@@ -152,6 +170,9 @@ export default {
       position: relative;
       flex: 1 1 0;
       overflow: hidden;
+    }
+    .fit-panel {
+      height: 70%!important;
     }
   }
 </style>

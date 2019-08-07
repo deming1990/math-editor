@@ -1,6 +1,6 @@
 <template>
   <span :id="model.uid" 
-    :class="{'operator-node': true, 'no-padding': noPadding}">
+    :class="{'operator-node': true, 'no-padding': noPadding, 'italic': needItalic, 'center': needCenter}">
     {{OPERATOR_CHARS[model.compType]}}
   </span>
 </template>
@@ -20,7 +20,20 @@ export default {
   computed: {
     noPadding() {
       return [
-        NODE_TYPES.ANGLE_NODE
+        NODE_TYPES.PI_NODE,
+        NODE_TYPES.ANGLE_NODE,
+        NODE_TYPES.TRIANGLE_NODE,
+        NODE_TYPES.PARALLELOGRAM_NODE
+      ].includes(this.model.compType)
+    },
+    needItalic() {
+      return [
+        NODE_TYPES.PARALLEL_NODE
+      ].includes(this.model.compType)
+    },
+    needCenter() {
+      return [
+        NODE_TYPES.ELLIPSIS_NODE
       ].includes(this.model.compType)
     }
   }
@@ -38,6 +51,12 @@ export default {
     display: inline-flex;
     &.no-padding {
       padding: 0;
+    }
+    &.italic {
+      font-style: italic;
+    }
+    &.center {
+      line-height: 50%;
     }
   }
 </style>
