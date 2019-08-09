@@ -27,10 +27,10 @@ export default {
     }
   },
   mounted() {
-    this.addFormatListener(this.$refs.numberNode)
+    this._addFormatListener(this.$refs.numberNode)
   },
   destroyed() {
-    this.removeFormatListener()
+    this._removeFormatListener()
   },
   methods: {
     onClick(evt) {

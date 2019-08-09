@@ -71,16 +71,16 @@ export default {
       }
     },
     addSuperScriptObserver() {
-      this.superScriptObserver = this.addMutationObserver(this.$refs.superScript, this.resizeValuePosition)
+      this.superScriptObserver = this._addMutationObserver(this.$refs.superScript, this.resizeValuePosition)
     },
     removeSuperScriptObserver() {
-      this.removeMutationObserver(this.superScriptObserver)
+      this._removeMutationObserver(this.superScriptObserver)
     },
     addSubScriptObserver() {
-      this.subScriptObserver = this.addMutationObserver(this.$refs.subScript, this.resizeValuePosition)
+      this.subScriptObserver = this._addMutationObserver(this.$refs.subScript, this.resizeValuePosition)
     },
     removeSubScriptObserver() {
-      this.removeMutationObserver(this.subScriptObserver)
+      this._removeMutationObserver(this.subScriptObserver)
     }
   }
 }

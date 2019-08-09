@@ -39,11 +39,11 @@ export default {
     },
     normalFontSize: {
       type: Number,
-      default: 26
+      default: 16
     },
     smallFontSize: {
       type: Number,
-      default: 18
+      default: 12
     }
   },
   data() {

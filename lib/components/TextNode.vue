@@ -73,14 +73,14 @@ export default {
     },
     onInput(evt) {
       this.model.value = evt.target.value
-      this.dispatchBoundaryDetection(this.model)
+      this._dispatchBoundaryDetection(this.model)
     },
     dispatchDeleteNode(evt) {
       const cursorPosition = evt.target.selectionStart
       if(cursorPosition === 0) {
         // 1 节点没有内容删除自己 
         // 2 节点还有内容进入上一个节点进行删除，数学符号直接删除，文本对象删除倒数第一个字符
-        this.$dispatch('.row-container', 'deleteNode', {
+        this._dispatch('.row-container', 'deleteNode', {
           node: this.model,
           type: this.model.value.length === 0 ? 1 : 2
         })
@@ -88,13 +88,13 @@ export default {
     },
     dispatchLineFeed(evt) {
       const cursorPosition = evt.target.selectionStart
-      this.$dispatch('.row-container', 'lineFeed', {
+      this._dispatch('.row-container', 'lineFeed', {
         node: this.model,
         cursorPosition
       })
     },
     dispatchCurrentFocusNode(cursorPosition) {
-      this.$dispatch('.row-container', 'changeCurrentFocusNode', {
+      this._dispatch('.row-container', 'changeCurrentFocusNode', {
         node: this.model,
         cursorPosition
       })
@@ -102,7 +102,7 @@ export default {
     dispatchMoveCursor(direction, cursorPosition) {
       if((direction === 'right' && cursorPosition < this.model.value.length)
         || (direction === 'left' && cursorPosition > 0)) return;
-      this.$dispatch('.row-container', 'moveCursor', {
+      this._dispatch('.row-container', 'moveCursor', {
         node: this.model,
         direction
       })

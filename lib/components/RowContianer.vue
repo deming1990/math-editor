@@ -24,15 +24,15 @@ export default {
     model: Object
   },
   mounted() {
-    this.addFormatListener(this.$refs.rowContainer)
+    this._addFormatListener(this.$refs.rowContainer)
   },
   destroyed() {
-    this.removeFormatListener()
+    this._removeFormatListener()
   },
   methods: {
     onRowContainerClick(evt) {
       if(!evt.target.matches('.row-container')) return
-      this.focusContainer(this.model)
+      this._focusContainer(this.model)
     }
   }
 }
@@ -43,6 +43,5 @@ export default {
     padding: 2.5px 5px 2.5px 5px;
     font-size: 15px;
     display: flex;
-    line-height: @small-number-node-height;
   }
 </style>

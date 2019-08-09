@@ -56,7 +56,7 @@ export default {
     onMathTextareaClick(evt) {
       if(!evt.target.matches('.math-textarea')) return
       const lastRowContainer = this.getLastRowContainer()
-      this.focusContainer(lastRowContainer)
+      this._focusContainer(lastRowContainer)
     },
     onChangeCurrentFocusNode({
       node,
