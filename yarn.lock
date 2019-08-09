@@ -2636,6 +2636,11 @@ findup-sync@3.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
+flatted@^2.0.1:
+  version "2.0.1"
+  resolved "http://r.cnpmjs.org/flatted/download/flatted-2.0.1.tgz#69e57caa8f0eacbc281d2e2cb458d46fdb449e08"
+  integrity sha1-aeV8qo8OrLwoHS4stFjUb9tEngg=
+
 flush-write-stream@^1.0.0:
   version "1.1.1"
   resolved "http://r.cnpmjs.org/flush-write-stream/download/flush-write-stream-1.1.1.tgz#8dd7d873a1babc207d94ead0c2e0e44276ebf2e8"
@@ -6282,6 +6287,11 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "http://r.cnpmjs.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
+
+vue@^2.6.10:
+  version "2.6.10"
+  resolved "http://r.cnpmjs.org/vue/download/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
+  integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=
 
 watchpack@^1.6.0:
   version "1.6.0"

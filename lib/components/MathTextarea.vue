@@ -20,10 +20,10 @@ import NodeManager from '../models/NodeManager'
 import helper from '../utils/helper'
 import compMixin from './component-mixin'
 import boundaryDetection from '../utils/boundaryDetection'
-import { setTimeout } from 'timers';
 
 const isRowContainer = (node) => {
-  return node && node instanceof RowContianer
+  return node 
+    && (node instanceof RowContianer || node.compType === 'row-container')
 }
 
 export default {
@@ -41,7 +41,17 @@ export default {
       return helper.arrToStr(this.rows)
     },
     setValue(val) {
-      this.rows = helper.strToArr(val)
+      this.rows = NodeManager.cloneRows(helper.strToArr(val))
+    },
+    isEmpty() {
+      const firstRow = this.getRow(0)
+      if(firstRow 
+        && firstRow.children
+        && firstRow.children.length > 0
+        && (firstRow.children.length > 1 || firstRow.children[0].value)) {
+          return false
+        }
+      return true
     },
     onMathTextareaClick(evt) {
       if(!evt.target.matches('.math-textarea')) return
@@ -105,11 +115,11 @@ export default {
         if(nodeIndex > 0) {
           let prevIndex = nodeIndex - 1
           let prevNode = children[prevIndex]
-          if(NodeManager.isOperatorNode(prevNode) || NodeManager.isMathNode(prevNode)) {
-            children.splice(prevIndex, 1)
-          } else if(NodeManager.isTextNode(prevNode)) {
+          if(NodeManager.isTextNode(prevNode)) {
             type === 1 && children.splice(nodeIndex, 1)
             helper.setElementFocus(prevNode.uid)
+          } else {
+            children.splice(prevIndex, 1)
           }
         } else {
           if(isRowContainer(parent)) {
@@ -147,7 +157,7 @@ export default {
         if(idx > 0) idx -= 1
         let lastChild = this.getRow(idx).getLastChild()
         if(!NodeManager.isTextNode(lastChild)) {
-          lastChild = NodeManager.createNode(NodeManager.TextNode)
+          lastChild = NodeManager.createTextNode()
           this.getRow(idx).appendChild(lastChild)
         }
         this.$nextTick(() => {
@@ -175,7 +185,6 @@ export default {
     trimLine(nodes) {
       if(nodes.length<2) return;
       const start = 0
-      const end = nodes.length - 1
       let curr = start
       while(NodeManager.isTextNode(nodes[curr])
         && nodes[curr].isEmpty()
@@ -183,7 +192,7 @@ export default {
           nodes.splice(curr,1)
       }
       if(nodes.length<2) return;
-      curr = end
+      curr = nodes.length - 1
       while(NodeManager.isTextNode(nodes[curr])
         && nodes[curr].isEmpty()
         && NodeManager.isTextNode(nodes[curr - 1])) {
@@ -200,11 +209,11 @@ export default {
     }) {
       const handleTextNode = (beforeChildren, afterChildren, node, nodeIndex, cursorPosition) => {
         if(cursorPosition === 0) {
-          beforeChildren.splice(nodeIndex, 1, NodeManager.createNode(NodeManager.TextNode))
+          beforeChildren.splice(nodeIndex, 1, NodeManager.createTextNode())
           afterChildren.unshift(node)
         } else if (cursorPosition > 0 && cursorPosition < node.value.length) {
-          const beforeNode = NodeManager.createNode(NodeManager.TextNode)
-          const afterNode = NodeManager.createNode(NodeManager.TextNode)
+          const beforeNode = NodeManager.createTextNode()
+          const afterNode = NodeManager.createTextNode()
           beforeNode.value = node.value.slice(0, cursorPosition)
           afterNode.value = node.value.slice(cursorPosition)
           beforeChildren.splice(nodeIndex, 1, beforeNode)
@@ -271,8 +280,8 @@ export default {
         const index = parent.children.indexOf(currentFocusNode)
         mathNode.parent = parent
         mathNode.slot = currentFocusNode.slot
-        const beforeTextNode = NodeManager.createNode(NodeManager.TextNode)
-        const afterTextNode = NodeManager.createNode(NodeManager.TextNode)
+        const beforeTextNode = NodeManager.createTextNode()
+        const afterTextNode = NodeManager.createTextNode()
         beforeTextNode.parent = parent
         beforeTextNode.slot = currentFocusNode.slot
         afterTextNode.parent = parent
@@ -291,7 +300,7 @@ export default {
         })
       } else {
         const lastRow = this.getLastRow()
-        const afterTextNode = NodeManager.createNode(NodeManager.TextNode)
+        const afterTextNode = NodeManager.createTextNode()
         afterTextNode.parent = lastRow
         lastRow.children.push(mathNode, afterTextNode)
         this.$nextTick(() => {
@@ -420,6 +429,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  .preview-mode {
+    .math-textarea {
+      overflow-x: auto;  
+    }  
+  }
   .math-textarea {
     position: relative;
     height: 100%;

@@ -56,6 +56,7 @@ export default {
     }
     .superValue, .subValue {
       padding: 0 5px;
+      line-height: @normal-input-height;
     }
   }
 </style>

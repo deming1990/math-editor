@@ -17,7 +17,7 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: '1024',
+              limit: '10000',
               name: "assets/[hash:8].[ext]"
             }
           }
@@ -26,10 +26,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-        'vue$': 'vue/dist/vue.esm.js',
-    }
+    extensions: ['.js', '.vue', '.json']
   },
   plugins: [
     new VueLoaderPlugin(),

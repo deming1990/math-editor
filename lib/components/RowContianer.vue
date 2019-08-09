@@ -38,10 +38,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  @import '../styles/variables.less';
   .row-container {
     padding: 2.5px 5px 2.5px 5px;
     font-size: 15px;
     display: flex;
-    // align-items: center;
+    line-height: @small-number-node-height;
   }
 </style>

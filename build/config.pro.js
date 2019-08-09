@@ -12,10 +12,9 @@ module.exports = merge(baseConfig, {
   entry: resolve('lib/index.js'),
   output: {
     path: resolve('dist'),
-    publicPath: "/",
     filename: 'math-editor.js',
     library: 'mathEditor',
-    libraryTarget: 'umd'
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
@@ -41,12 +40,7 @@ module.exports = merge(baseConfig, {
     ],
   },
   externals: {
-    vue: {
-      root: 'Vue',
-      commonjs: 'vue',
-      commonjs2: 'vue',
-      amd: 'vue'
-    }
+    vue: 'vue'
   },
   plugins: [
     new CleanWebpackPlugin(),

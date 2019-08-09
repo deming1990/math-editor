@@ -34,7 +34,9 @@ export default {
     padding: 0;
     list-style: none;
     .math-toolbar-item {
-      padding: 5px;
+      height: 24px;
+      padding: 0 5px;
+      line-height: 24px;
       font-size: 12px;
       cursor: pointer;
       border: 1px solid #d3d3d3;

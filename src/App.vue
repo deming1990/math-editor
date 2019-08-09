@@ -9,10 +9,10 @@
     </div>
     <div class="tab-body">
       <div class="tab-body-item">
-        <MathEditor :mode="'edit'" ref="mathEditorA" />
+        <math-editor :mode="'edit'" ref="mathEditorA"></math-editor>
       </div>
       <div class="tab-body-item">
-        <MathEditor :mode="'preview'" ref="mathEditorB" />
+        <math-editor :mode="'preview'" ref="mathEditorB"></math-editor>
       </div>
     </div>
     <ul class="action-group">
@@ -34,8 +34,6 @@
   </div>
 </template>
 <script>
-import MathEditor from '../dist/math-editor'
-import '../dist/math-editor.css'
 
 const TABS = [
   {id: 1, name: '编辑模式'},
@@ -50,9 +48,6 @@ export default {
       result: ''
     }
   },
-  components: {
-    MathEditor
-  },
   methods: {
     switchTab(id) {
       this.currTab = id
@@ -61,6 +56,7 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
+      // this.$refs.mathEditorA.setValue(this.result)
       this.$refs.mathEditorB.setValue(this.result)
     }
   }

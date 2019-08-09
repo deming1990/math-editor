@@ -1,7 +1,7 @@
 <template>
   <div :id="model.uid" 
-    :class="['number-node', hasNumber ? 'has-number' : '']"
-    :style="nodeStyles"
+    :class="{'number-node': true, 'empty': isEmpty}"
+    :style="_numberNodeStyles"
     @click="onClick" ref="numberNode">
     <basic-node v-for="item in model.children" 
       :model="item"
@@ -17,18 +17,13 @@ import compMixin from './component-mixin'
 export default {
   name: NODE_TYPES.NUMBER_NODE,
   mixins: [compMixin],
-  inject: ['isPreviewMode'],
   props: {
     model: Object
   },
   computed: {
-    hasNumber() {
-      return this.model.children[0].value !== ''
-    },
-    nodeStyles() {
-      return this.isPreviewMode 
-        ? {border: 'none!important', minWidth: '0'}
-        : {}
+    isEmpty() {
+      return !(this.model.children > 1 
+        || this.model.children[0].value !== '')
     }
   },
   mounted() {
@@ -54,13 +49,13 @@ export default {
   .number-node {
     position: relative;
     display: inline-flex;
-    min-height: @normal-number-node-height;
-    min-width: @normal-number-node-width;
-    border: 1px dashed @border-color;
-    box-sizing: border-box;
-    &.has-number {
-      border: none;
-      min-width: 0;
+    &.empty {
+      border: 1px dashed @border-color;
     }
+  }
+  .preview-mode {
+    .number-node.empty {
+      border: none;
+    }  
   }
 </style>

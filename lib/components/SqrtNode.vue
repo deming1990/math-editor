@@ -43,7 +43,6 @@ import {
 } from '../constants'
 import compMixin from './component-mixin'
 export default {
-  name: NODE_TYPES.SQRT_NODE,
   mixins: [compMixin],
   props: {
     model: Object
@@ -85,31 +84,8 @@ export default {
   }
 }
 </script>
-<style lang="less">
-  @import '../styles/variables.less';
-  .sqrt-node-nth {
-    .number-node {
-      min-height: @small-number-node-height!important;
-      min-width: @small-number-node-width!important;
-      &.has-number {
-        min-width: 0;
-      }
-    }
-    .text-node {
-      height: @small-input-height!important;
-    }
-    input {
-      height: @small-input-height!important;
-      font-size: @small-font-size!important;
-    }
-    .hidden {
-      height: @small-input-height!important;
-      line-height: @small-input-height!important;
-      font-size: @small-font-size!important;
-    }
-  }
-</style>
 <style lang="less" scoped>
+  @import '../styles/variables.less';
   .sqrt-node {
     position: relative;
     height: fit-content;

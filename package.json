@@ -16,7 +16,7 @@
     "build": "./node_modules/.bin/webpack-cli --config ./build/config.pro.js"
   },
   "dependencies": {
-    "JSON2": "^0.1.0",
+    "flatted": "^2.0.1",
     "vue": "^2.6.10"
   },
   "peerDependencies": {

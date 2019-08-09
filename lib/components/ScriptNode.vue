@@ -85,36 +85,6 @@ export default {
   }
 }
 </script>
-<style lang="less">
-  @import '../styles/variables.less';
-  .square-super-script,
-  .square-sub-script {
-    .number-node {
-      min-height: @small-number-node-height!important;
-      min-width: @small-number-node-width;
-      &.has-number {
-        min-width: 0;
-      }
-    }
-    .text-node {
-      height: @small-input-height!important;
-    }
-    input {
-      height: @small-input-height!important;
-      font-size: @small-font-size!important;
-    }
-    .hidden {
-      height: @small-input-height!important;
-      line-height: @small-input-height!important;
-      font-size: @small-font-size!important;
-    }
-    .operator-node {
-      height: @small-input-height!important;
-      line-height: @small-input-height!important;
-      font-size: @small-font-size!important;
-    }
-  }
-</style>
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .square-node {
@@ -139,7 +109,6 @@ export default {
   .square-sub-script {
     position: relative;
     height: fit-content;
-    min-height: @small-number-node-height!important;
     display: inline-flex;
   }
 </style>

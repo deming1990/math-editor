@@ -1,30 +1,37 @@
 <template>
-  <div :class="{'text-node': true, 'no-content': noContent}">
-    <input type="text"
-      :disabled="isPreviewMode"
+  <div  
+    :class="{'text-node': true, 'empty': isEmpty}"
+    :style="_fontStyles">
+    <input 
+      type="text"
       :id="model.uid"
       :value="model.value"
-      autocomplete="off"
-      @blur="onBlur"
-      @focus="onFocus"
+      :disabled="isPreviewMode"
+      :style="_fontStyles"
+      @input="onInput"
       @keydown="onKeyDown"
-      @input="onInput">
-    <span class="hidden">{{model.value}}</span>
+      @focus="onFocus"
+      @blur="onBlur">
+    <!-- 注意，不要在span中插入任何空格和换行符 -->
+    <span 
+      class="hidden" 
+      :style="_fontStyles">{{model.value}}</span>
   </div>
 </template>
 <script>
-import {NODE_TYPES} from '../constants'
+import {
+  SLOT_SUPER_SCRIPT, 
+  SLOT_SUB_SCRIPT
+} from '../constants'
 import compMixin from './component-mixin'
 
 export default {
-  name: NODE_TYPES.TEXT_NODE,
   mixins: [compMixin],
-  inject: ['isPreviewMode'],
   props: {
     model: Object
   },
   computed: {
-    noContent() {
+    isEmpty() {
       return this.model.value === ''
     }
   },
@@ -107,32 +114,27 @@ export default {
   @import '../styles/variables.less';
   .text-node {
     position: relative;
-    height: @box-size;
     width: fit-content;
-    display: inline-block;
-    &.no-content {
+    display: inline-flex;
+    &.empty {
+      // 保留显示光标的空间
       min-width: 1px;
     }
     input {
       position: absolute;
       top: 0px;
       left: 0px;
-      height: @normal-input-height;
       width: 100%;
       padding: 0;
       margin: 0;
-      line-height: @normal-input-height;
-      font-size: @normal-font-size;
       border: none;
       outline: none;
       z-index: 10;
       font-family: @text-font-family;
     }
     .hidden {
-      height: @normal-input-height;
-      line-height: @normal-input-height;
-      font-size: @normal-font-size;
       font-family: @text-font-family;
+      // 保留span中内容的空格与换行符
       white-space: pre;
       visibility: hidden;
     }
