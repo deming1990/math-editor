@@ -286,10 +286,17 @@ export default {
         beforeTextNode.slot = currentFocusNode.slot
         afterTextNode.parent = parent
         afterTextNode.slot = currentFocusNode.slot
+        const nodes = []
         if(currentCursorPosition === 0) {
-          parent.children.splice(index, 0, beforeTextNode, mathNode, afterTextNode)
+          !NodeManager.isTextNode(parent.children[index - 1]) && nodes.push(beforeTextNode)
+          nodes.push(mathNode)
+          !NodeManager.isTextNode(parent.children[index]) && nodes.push(afterTextNode)
+          parent.children.splice(index, 0, ...nodes)
         } else if(currentCursorPosition === currentFocusNode.value.length) {
-          parent.children.splice(index + 1, 0, beforeTextNode, mathNode, afterTextNode)
+          !NodeManager.isTextNode(parent.children[index]) && nodes.push(beforeTextNode)
+          nodes.push(mathNode)
+          !NodeManager.isTextNode(parent.children[index + 1]) && nodes.push(afterTextNode)
+          parent.children.splice(index + 1, 0, ...nodes)
         } else {
           beforeTextNode.value = currentFocusNode.value.substring(0, currentCursorPosition)
           afterTextNode.value = currentFocusNode.value.substring(currentCursorPosition)
@@ -438,6 +445,7 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
+    line-height: 1;
     overflow-x: hidden;
     overflow-y: auto;
   }

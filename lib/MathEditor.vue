@@ -76,8 +76,10 @@ export default {
   provide() {
     return {
       isPreviewMode: this.isPreviewMode,
-      normalFontSize: this.normalFontSize,
-      smallFontSize: this.smallFontSize
+      _normalFontSize: this.normalFontSize,
+      _normalHeight: this.normalFontSize + 2,
+      _smallFontSize: this.smallFontSize,
+      _smallHeight: this.smallFontSize + 2
     }
   },
   methods: {

@@ -61,12 +61,12 @@ export default {
     resizeValuePosition() {
       if(this.hasSuperScript) {
         let height = parseFloat(getComputedStyle(this.$refs.superScript).height)
-        height -= 10
+        height -= this._smallHeight / 2
         this.$set(this.valueStyle, 'marginTop', `${height}px`)
       }
       if(this.hasSubScript) {
         let height = parseFloat(getComputedStyle(this.$refs.subScript).height)
-        height -= 10
+        height -= this._smallHeight / 2
         this.$set(this.valueStyle, 'marginBottom', `${height}px`)
       }
     },
