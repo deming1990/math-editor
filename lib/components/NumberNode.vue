@@ -1,7 +1,7 @@
 <template>
   <div :id="model.uid" 
     :class="{'number-node': true, 'empty': isEmpty}"
-    :style="_numberNodeStyles"
+    :style="nodeStyles"
     @click="onClick" ref="numberNode">
     <basic-node v-for="item in model.children" 
       :model="item"
@@ -24,6 +24,12 @@ export default {
     isEmpty() {
       return !(this.model.children > 1 
         || this.model.children[0].value !== '')
+    },
+    nodeStyles() {
+      const minWidth = `${this._isScriptChild ? this._smallHeight : this._normalHeight}px`
+      return Object.assign({}, this._numberNodeStyles, {
+        minWidth: this.isEmpty ? minWidth : 0
+      })
     }
   },
   mounted() {

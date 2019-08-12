@@ -36,7 +36,6 @@
 </template>
 <script>
 import {
-  NODE_TYPES,
   SLOT_SUPER_SCRIPT,
   SLOT_SUB_SCRIPT,
   SLOT_VALUE
@@ -84,6 +83,13 @@ export default {
   }
 }
 </script>
+<style lang="less">
+  .sqrt-node {
+    .number-node {
+      min-width: 14px!important;
+    }
+  }
+</style>
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .sqrt-node {

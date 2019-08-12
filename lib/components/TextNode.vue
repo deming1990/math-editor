@@ -7,7 +7,7 @@
       :id="model.uid"
       :value="model.value"
       :disabled="isPreviewMode"
-      :style="_fontStyles"
+      :style="inputStyles"
       @input="onInput"
       @keydown="onKeyDown"
       @focus="onFocus"
@@ -33,6 +33,11 @@ export default {
   computed: {
     isEmpty() {
       return this.model.value === ''
+    },
+    inputStyles() {
+      return Object.assign({}, this._fontStyles, {
+        background: this.isPreviewMode ? 'none' : '#fff'
+      })
     }
   },
   methods: {
