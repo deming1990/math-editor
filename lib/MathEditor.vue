@@ -144,7 +144,7 @@ export default {
       overflow: hidden;
     }
     .fit-panel {
-      height: 70%!important;
+      height: 60%!important;
     }
   }
 </style>
