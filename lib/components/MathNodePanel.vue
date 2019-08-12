@@ -44,7 +44,7 @@ export default {
 
   .math-node-panel {
     position: absolute;
-    top: 70%;
+    top: 60%;
     right: 0;
     left: 0;
     bottom: 0;
