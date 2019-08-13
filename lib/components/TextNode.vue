@@ -4,6 +4,7 @@
     :style="_fontStyles">
     <input 
       type="text"
+      autocomplete="nope"
       :id="model.uid"
       :value="model.value"
       :disabled="isPreviewMode"
@@ -78,7 +79,6 @@ export default {
     },
     onInput(evt) {
       this.model.value = evt.target.value
-      this._dispatchBoundaryDetection(this.model)
     },
     dispatchDeleteNode(evt) {
       const cursorPosition = evt.target.selectionStart

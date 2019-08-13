@@ -145,9 +145,6 @@ export default {
         item.parent = beforeRow
       })
       this.deleteRow(afterRow)
-      this.onBoundaryDetection({
-        target: middleNode
-      })
     },
     deleteRow(row) {
       if(this.getRowCount() > 1) {
@@ -247,18 +244,19 @@ export default {
       })
     },
     onBoundaryDetection({
-      target
-    }) {
-      let row = target.parent
-      while(!isRowContainer(row)) {
-        target = target.parent
-        row = target.parent
-      }
-      const point = boundaryDetection.detectBoundary(row, target)
-      if(point) {
+      rowModel,
+      rowContainer,
+      changedTargets
+    }) {     
+      const res = boundaryDetection.detectBoundary(rowModel, rowContainer, changedTargets)
+      if(res) {
+        const {
+          nodeModel,
+          cursorPosition
+        } = res
         this.onLineFeed({
-          node: point,
-          cursorPosition: (NodeManager.isTextNode(point) && point.value.length) || 0
+          node: nodeModel,
+          cursorPosition
         })
       }
     },
@@ -280,8 +278,8 @@ export default {
         const index = parent.children.indexOf(currentFocusNode)
         mathNode.parent = parent
         mathNode.slot = currentFocusNode.slot
-        const beforeTextNode = NodeManager.createTextNode()
-        const afterTextNode = NodeManager.createTextNode()
+        let beforeTextNode = NodeManager.createTextNode()
+        let afterTextNode = NodeManager.createTextNode()
         beforeTextNode.parent = parent
         beforeTextNode.slot = currentFocusNode.slot
         afterTextNode.parent = parent
@@ -290,12 +288,16 @@ export default {
         if(currentCursorPosition === 0) {
           !NodeManager.isTextNode(parent.children[index - 1]) && nodes.push(beforeTextNode)
           nodes.push(mathNode)
-          !NodeManager.isTextNode(parent.children[index]) && nodes.push(afterTextNode)
+          !NodeManager.isTextNode(parent.children[index]) 
+            ? nodes.push(afterTextNode)
+            : (afterTextNode = parent.children[index])
           parent.children.splice(index, 0, ...nodes)
         } else if(currentCursorPosition === currentFocusNode.value.length) {
           !NodeManager.isTextNode(parent.children[index]) && nodes.push(beforeTextNode)
           nodes.push(mathNode)
-          !NodeManager.isTextNode(parent.children[index + 1]) && nodes.push(afterTextNode)
+          !NodeManager.isTextNode(parent.children[index + 1]) 
+            ? nodes.push(afterTextNode)
+            : (afterTextNode = parent.children[index + 1])
           parent.children.splice(index + 1, 0, ...nodes)
         } else {
           beforeTextNode.value = currentFocusNode.value.substring(0, currentCursorPosition)
@@ -314,11 +316,6 @@ export default {
           helper.setElementFocus(afterTextNode.uid, 0)
         })
       }
-      this.$nextTick(() => {
-        this.onBoundaryDetection({
-          target: mathNode
-        })
-      })
     },
     getNextTextNode(node) {
       const getNextChildTextNode = (parent) => {
