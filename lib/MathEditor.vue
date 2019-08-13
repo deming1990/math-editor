@@ -34,8 +34,7 @@ export default {
       default: EDITOR_MODES.PREVIEW
     },
     height: {
-      type: String,
-      default: '100%'
+      type: String
     },
     normalFontSize: {
       type: Number,
@@ -68,9 +67,11 @@ export default {
       }
     },
     mathEditorStyles() {
-      return {
-        height: this.height
+      const styles = {}
+      if(this.height) {
+        styles['height'] = this.height
       }
+      return styles
     }
   },
   provide() {
@@ -130,6 +131,8 @@ export default {
       border-radius: 4px;
     }
     &.preview-mode {
+      display: block;
+      height: auto;
       .math-editor-header {
         display: none;
       }
