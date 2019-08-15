@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     isEmpty() {
-      return !(this.model.children > 1 
+      return !(this.model.children.length > 1 
         || this.model.children[0].value !== '')
     },
     nodeStyles() {
