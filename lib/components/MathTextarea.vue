@@ -106,12 +106,14 @@ export default {
      */
     onDeleteNode({
       type,
-      node
+      node,
+      direction
     }) {
-      const deleteSiblingNode = (node, type) => {
+      const deleteLeftSiblingNode = (node, type) => {
         const parent = node.parent
         const children = parent.children
         const nodeIndex = children.indexOf(node)
+        
         if(nodeIndex > 0) {
           let prevIndex = nodeIndex - 1
           let prevNode = children[prevIndex]
@@ -135,7 +137,18 @@ export default {
           }
         }
       }
-      deleteSiblingNode(node, type)
+      const deleteRightSiblingNode = (node, type) => {
+        // const parent = node.parent
+        // const children = parent.children
+        // const nodeIndex = children.indexOf(node)
+        // if(nodeIndex === children.length - 1) {
+        // } else {
+        // }
+      }
+      direction === 1 
+        ? deleteLeftSiblingNode(node, type)
+        : deleteRightSiblingNode(node, type)
+      
     },
     concatRow(beforeRow, afterRow) {
       const nodes = afterRow.children

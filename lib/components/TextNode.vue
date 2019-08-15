@@ -53,7 +53,10 @@ export default {
       switch(evt.keyCode) {
         // BackSpace
         case 8:
-          this.dispatchDeleteNode(evt)
+          this.dispatchDeleteNode(evt, 1)
+          break
+        case 46:
+          this.dispatchDeleteNode(evt, 2)
           break
         // Enter 
         case 13:
@@ -80,14 +83,15 @@ export default {
     onInput(evt) {
       this.model.value = evt.target.value
     },
-    dispatchDeleteNode(evt) {
+    dispatchDeleteNode(evt, direction) {
       const cursorPosition = evt.target.selectionStart
       if(cursorPosition === 0) {
         // 1 节点没有内容删除自己 
         // 2 节点还有内容进入上一个节点进行删除，数学符号直接删除，文本对象删除倒数第一个字符
         this._dispatch('.row-container', 'deleteNode', {
           node: this.model,
-          type: this.model.value.length === 0 ? 1 : 2
+          type: this.model.value.length === 0 ? 1 : 2,
+          direction
         })
       }
     },

@@ -26,10 +26,10 @@ export default {
         || this.model.children[0].value !== '')
     },
     nodeStyles() {
+      const styles = {}
       const minWidth = `${this._isScriptChild ? this._smallHeight : this._normalHeight}px`
-      return Object.assign({}, this._numberNodeStyles, {
-        minWidth: this.isEmpty ? minWidth : 0
-      })
+      this.isEmpty && (styles['minWidth'] = minWidth)
+      return Object.assign({}, this._numberNodeStyles, styles)
     }
   },
   mounted() {

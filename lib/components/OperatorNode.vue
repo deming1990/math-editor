@@ -1,7 +1,7 @@
 <template>
-  <div class="inline-node" :id="model.uid" :style="_fontStyles">
+  <div class="inline-node" :id="model.uid">
     <template v-if="hasPrefix || hasPostfix">
-      <div v-if="hasPrefix" class="prefix">
+      <div v-if="hasPrefix" class="prefix" :style="_fontStyles">
         {{OPERATOR_CHARS[model.compType]}}
       </div>
       <basic-node v-for="item in model.children" :model="item" :key="item.uid" />
@@ -81,6 +81,7 @@ export default {
     .postfix,
     .content {
       font-family: @text-font-family;
+      width: max-content;
     }
     .content {
       padding: 0 5px;
