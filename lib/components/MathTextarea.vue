@@ -435,7 +435,8 @@ export default {
 <style lang="less" scoped>
   .preview-mode {
     .math-textarea {
-      overflow-x: auto;  
+      overflow-x: auto;
+      overflow-y: hidden;
     }  
   }
   .math-textarea {

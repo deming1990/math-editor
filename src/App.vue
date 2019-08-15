@@ -56,7 +56,6 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
-      // this.$refs.mathEditorA.setValue(this.result)
       this.$refs.mathEditorB.setValue(this.result)
     }
   }
