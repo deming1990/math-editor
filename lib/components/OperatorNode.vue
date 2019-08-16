@@ -1,16 +1,25 @@
 <template>
   <div class="inline-node" :id="model.uid">
     <template v-if="hasPrefix || hasPostfix">
-      <div v-if="hasPrefix" class="prefix" :style="_fontStyles">
+      <div 
+        v-if="hasPrefix" 
+        class="prefix" 
+        :style="_fontStyles">
         {{OPERATOR_CHARS[model.compType]}}
       </div>
       <basic-node v-for="item in model.children" :model="item" :key="item.uid" />
-      <div v-if="hasPostfix" class="postfix" :style="_fontStyles">
+      <div 
+        v-if="hasPostfix" 
+        class="postfix" 
+        :style="_fontStyles">
         {{OPERATOR_CHARS[model.compType]}}
       </div>
     </template>
     <template v-else>
-      <div class="content" :style="contentStyles">
+      <div 
+        class="content" 
+        :style="contentStyles" 
+        @click="handleOperatorClick">
         {{OPERATOR_CHARS[model.compType]}}
       </div>
     </template>
@@ -66,6 +75,13 @@ export default {
   data() {
     return {
       OPERATOR_CHARS
+    }
+  },
+  methods: {
+    handleOperatorClick() {
+      this._dispatch('.row-container', 'operatorClick', {
+        node: this.model
+      })
     }
   }
 }

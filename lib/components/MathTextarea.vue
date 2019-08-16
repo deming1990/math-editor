@@ -10,7 +10,8 @@
       @moveCursor="onMoveCursor"
       @deleteNode="onDeleteNode"
       @lineFeed="onLineFeed"
-      @boundaryDetection="onBoundaryDetection">
+      @boundaryDetection="onBoundaryDetection"
+      @operatorClick="onOperatorClick">
     </row-container>
   </div>  
 </template>
@@ -127,51 +128,76 @@ export default {
           if(isRowContainer(parent)) {
             const rowIndex = this.getRowIndex(parent)
             if(parent.size() === 1 && type === 1) {
-              rowIndex > 0 && this.deleteRow(parent)
+              rowIndex > 0 && this.deleteRow(parent, 1)
             } else {
               if(rowIndex > 0) {
                 const prevRow = this.getRow(rowIndex - 1)
-                this.concatRow(prevRow, parent)
+                this.concatRow(prevRow, parent, 1)
               }
             }
           }
         }
       }
       const deleteRightSiblingNode = (node, type) => {
-        // const parent = node.parent
-        // const children = parent.children
-        // const nodeIndex = children.indexOf(node)
-        // if(nodeIndex === children.length - 1) {
-        // } else {
-        // }
+        const parent = node.parent
+        const children = parent.children
+        const nodeIndex = children.indexOf(node)
+        if(nodeIndex === children.length - 1) {
+          if(isRowContainer(parent)) {
+            const rowIndex = this.getRowIndex(parent)
+            const rowCount = this.getRowCount()
+            if(parent.size() === 1 && type === 1) {
+              (rowIndex < rowCount - 1) && this.deleteRow(parent, 2)
+            } else {
+              if(rowIndex < rowCount - 1) {
+                const nextRow = this.getRow(rowIndex + 1)
+                this.concatRow(parent, nextRow, 2)
+              }
+            }
+          }
+        } else {
+          let nextIndex = nodeIndex + 1
+          let nextNode = children[nextIndex]
+          if(NodeManager.isTextNode(nextNode)) {
+            type === 1 && children.splice(nodeIndex, 1)
+            helper.setElementFocus(nextNode.uid, 0)
+          } else {
+            children.splice(nextIndex, 1)
+          }
+        }
       }
       direction === 1 
         ? deleteLeftSiblingNode(node, type)
         : deleteRightSiblingNode(node, type)
       
     },
-    concatRow(beforeRow, afterRow) {
+    concatRow(beforeRow, afterRow, direction) {
       const nodes = afterRow.children
       const middleNode = nodes[0]
       beforeRow.appendChild(nodes)
       nodes.forEach((item) => {
         item.parent = beforeRow
       })
-      this.deleteRow(afterRow)
+      this.deleteRow(afterRow, direction)
     },
-    deleteRow(row) {
+    deleteRow(row, direction = 1) {
       if(this.getRowCount() > 1) {
         boundaryDetection.removeBoundary(row.uid)
         let idx = this.getRowIndex(row)
         this.rows.splice(idx, 1)
         if(idx > 0) idx -= 1
-        let lastChild = this.getRow(idx).getLastChild()
-        if(!NodeManager.isTextNode(lastChild)) {
-          lastChild = NodeManager.createTextNode()
-          this.getRow(idx).appendChild(lastChild)
+
+        let selectedChild = direction === 1
+          ? this.getRow(idx).getLastChild()
+          : this.getRow(idx).getFirstChild()
+        if(!NodeManager.isTextNode(selectedChild)) {
+          selectedChild = NodeManager.createTextNode()
+          direction === 1
+            ? this.getRow(idx).appendChild(selectedChild)
+            : this.getRow(idx).unshift(selectedChild)
         }
         this.$nextTick(() => {
-          helper.setElementFocus(lastChild.uid)
+          helper.setElementFocus(selectedChild.uid)
         })
       }
     },
@@ -439,6 +465,26 @@ export default {
           } else {
             return this.getPrevTextNode(lastChild)
           }
+        }
+      }
+    },
+    onOperatorClick({
+      node
+    }) {
+      const hasChildren = (node) => {
+        return node.children
+          && node.children.length > 0
+      }
+      const parent = node.parent
+      if(hasChildren(parent)) {
+        let index = parent.children.indexOf(node)
+        let len = parent.children.length
+        while (index > -1 && index < len){
+          if(NodeManager.isTextNode(parent.children[index])) {
+            helper.setElementFocus(parent.children[index].uid, 0)
+            return
+          }
+          index += 1
         }
       }
     }
