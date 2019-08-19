@@ -370,7 +370,7 @@ export default {
       }
       const getNextSiblingTextNode = (node) => {
         let children = node.parent.children
-        let nodeIndex = children.indexOf(node)
+        let nodeIndex = children.findIndex(item => item.uid === node.uid)
         while(nodeIndex < children.length - 1) {
           nodeIndex += 1
           let nextNode = children[nodeIndex]
@@ -426,7 +426,7 @@ export default {
       }
       const getPrevSiblingTextNode = (node) => {
         let children = node.parent.children
-        let nodeIndex = children.indexOf(node)
+        let nodeIndex = children.findIndex(item => item.uid === node.uid)
         while(nodeIndex > 0) {
           nodeIndex -= 1
           let prevNode = children[nodeIndex]
