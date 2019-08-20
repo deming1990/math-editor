@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="tab-body">
-      <div class="tab-body-item">
+      <div class="tab-body-item big">
         <math-editor :mode="'edit'" ref="mathEditorA"></math-editor>
       </div>
       <div class="tab-body-item">
@@ -101,6 +101,9 @@ html, body {
       flex: 1;
       overflow: hidden;
       padding: 5px;
+      &.big {
+        flex: 2;
+      }
     }
   }
   .action-group {

@@ -5,7 +5,8 @@
     <row-container 
       v-for="row in rows"
       :model="row"
-      :key="row.id"
+      :key="row.uid"
+      :ref="'rowContainer' + row.uid"
       @changeCurrentFocusNode="onChangeCurrentFocusNode"
       @moveCursor="onMoveCursor"
       @deleteNode="onDeleteNode"
@@ -20,7 +21,7 @@ import RowContianer from '../models/RowContianer'
 import NodeManager from '../models/NodeManager'
 import helper from '../utils/helper'
 import compMixin from './component-mixin'
-import boundaryDetection from '../utils/boundaryDetection'
+import BoundaryDetection from '../utils/boundaryDetection'
 
 const isRowContainer = (node) => {
   return node 
@@ -37,12 +38,23 @@ export default {
       currentCursorPosition: 0
     }
   },
+  created() {
+    this.boundaryDetection = new BoundaryDetection()
+  },
+  destroyed() {
+    this.boundaryDetection = null
+  },
   methods: {
     getValue() {
       return helper.arrToStr(this.rows)
     },
     setValue(val) {
       this.rows = NodeManager.cloneRows(helper.strToArr(val))
+      this.$nextTick(() => {
+        if(this.isPreviewMode) {
+          this.boundaryDetectionRows()
+        }
+      })
     },
     isEmpty() {
       const firstRow = this.getRow(0)
@@ -182,7 +194,7 @@ export default {
     },
     deleteRow(row, direction = 1) {
       if(this.getRowCount() > 1) {
-        boundaryDetection.removeBoundary(row.uid)
+        this.boundaryDetection.removeBoundary(row.uid)
         let idx = this.getRowIndex(row)
         this.rows.splice(idx, 1)
         if(idx > 0) idx -= 1
@@ -287,7 +299,7 @@ export default {
       rowContainer,
       changedTargets
     }) {     
-      const res = boundaryDetection.detectBoundary(rowModel, rowContainer, changedTargets)
+      const res = this.boundaryDetection.detectBoundary(rowModel, rowContainer, changedTargets)
       if(res) {
         const {
           nodeModel,
@@ -486,6 +498,20 @@ export default {
           }
           index += 1
         }
+      }
+    },
+    boundaryDetectionRows() {
+      const $rowCons = Object.keys(this.$refs).filter(key => {
+        return key.indexOf('rowContainer') > -1
+      }).map(item => {
+        return this.$refs[item][0].$el
+      })
+      let index = $rowCons.length - 1
+      for(;index >= 0;index--) {
+        this.onBoundaryDetection({
+          rowModel: this.rows[index],
+          rowContainer: $rowCons[index]
+        })
       }
     }
   }

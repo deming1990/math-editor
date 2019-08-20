@@ -9,8 +9,6 @@ const resolve = (dir) => path.resolve(__dirname, '..', dir)
 
 module.exports = merge(baseConfig, {
   mode: 'production',
-  // mode: 'development',
-  // devtool: 'source-map',
   entry: resolve('lib/index.js'),
   output: {
     path: resolve('dist'),
