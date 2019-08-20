@@ -9,7 +9,11 @@
     </div>
     <div class="tab-body">
       <div class="tab-body-item big">
-        <math-editor :mode="'edit'" ref="mathEditorA"></math-editor>
+        <math-editor 
+          :mode="'edit'"
+          textAreaWidth="210px"
+          ref="mathEditorA">
+        </math-editor>
       </div>
       <div class="tab-body-item">
         <math-editor :mode="'preview'" ref="mathEditorB"></math-editor>

@@ -5,7 +5,10 @@
       </math-toolbar>
     </div>
     <div class="math-editor-body" ref="mathEditorBody">
-      <math-textarea ref="mathTextarea" :class="{'fit-panel': panelVisible}"></math-textarea>
+      <math-textarea 
+        ref="mathTextarea" 
+        :class="{'fit-panel': panelVisible}"
+        :style="mathTextareaStyles"></math-textarea>
       <math-node-panel v-if="panelVisible" 
         :category="currCategory" 
         @mathNodeSelect="onMathNodeSelect"
@@ -43,6 +46,9 @@ export default {
     smallFontSize: {
       type: Number,
       default: 12
+    },
+    textAreaWidth: {
+      type: String
     }
   },
   data() {
@@ -70,6 +76,14 @@ export default {
       const styles = {}
       if(this.height) {
         styles['height'] = this.height
+      }
+      return styles
+    },
+    mathTextareaStyles() {
+      const styles = {}
+      if(this.textAreaWidth) {
+        styles['width'] = this.textAreaWidth
+        styles['borderRight'] = '1px dashed #d3d3d3'
       }
       return styles
     }

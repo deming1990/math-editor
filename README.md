@@ -63,6 +63,7 @@ this.$refs.mathTextEditor.setValue(data)
 | height | 编辑器高度 | string | - | 100% |
 | normalFontSize | 文本字体大小 | number | - | 16 |
 | smallFontSize | 角标字体大小，<br> 例如平方的指数部分 | number | - | 16 |
+| textAreaWidth | 编辑器输入框宽度 | string | - | - |
 
 
 | 方法 | 方法定义 | 参数 | 参数说明 |
