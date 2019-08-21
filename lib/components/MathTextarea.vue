@@ -501,10 +501,14 @@ export default {
       }
     },
     boundaryDetectionRows() {
-      const $rowCons = Object.keys(this.$refs).filter(key => {
+      const $rowCons = []
+      Object.keys(this.$refs).filter(key => {
         return key.indexOf('rowContainer') > -1
-      }).map(item => {
-        return this.$refs[item][0].$el
+      }).forEach(item => {
+        if(this.$refs[item] 
+          && this.$refs[item].length > 0) {
+          $rowCons.push(this.$refs[item][0].$el)
+        }
       })
       let index = $rowCons.length - 1
       for(;index >= 0;index--) {
