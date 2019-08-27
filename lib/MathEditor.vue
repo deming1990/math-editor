@@ -55,7 +55,8 @@ export default {
     return {
       EDITOR_MODES,
       currCategory: '',
-      panelVisible: false
+      panelVisible: false,
+      isDataLoading: false
     }
   },
   computed: {
@@ -89,20 +90,30 @@ export default {
     }
   },
   provide() {
-    return {
+    const data = {
       isPreviewMode: this.isPreviewMode,
+      isDataLoading: false,
       _normalFontSize: this.normalFontSize,
       _normalHeight: this.normalFontSize + 2,
       _smallFontSize: this.smallFontSize,
       _smallHeight: this.smallFontSize + 2
     }
+    this.globalVM = new Vue({data})
+    return data
+  },
+  destroyed() {
+    this.globalVM = null
   },
   methods: {
     getValue() {
       return this.$refs.mathTextarea.getValue()  
     },
     setValue(str) {
+      this.globalVM.isDataLoading = true
       this.$refs.mathTextarea.setValue(str)
+      setTimeout(() => {
+        this.globalVM.isDataLoading = false
+      }, 0)
     },
     isEmpty() {
       return this.$refs.mathTextarea.isEmpty()

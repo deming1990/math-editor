@@ -27,7 +27,7 @@ export default {
   },
   mounted() {
     this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
-      if(!this.isPreviewMode) {
+      if(!this.isPreviewMode && !this.isDataLoading) {
         this.boundaryDetection(mutationsList)
       }
     })
