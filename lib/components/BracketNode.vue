@@ -80,14 +80,14 @@ export default {
     &.square-bracket:before {
         left: -6px;
         border-left: 2px solid #000;
-        border-radius: 50%;
+        border-radius: 50% 0 0 50%;
     }
     &.bracket:after,
     &.absolute:after,
     &.square-bracket:after {
         right: -6px;
         border-right: 2px solid #000;
-        border-radius: 50%;
+        border-radius: 0 50% 50% 0;
     }
     &.bracket:before, 
     &.bracket:after {

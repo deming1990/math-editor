@@ -158,6 +158,9 @@ export default {
       &:disabled {
         // 解决ios input disabled时input变成透明
         opacity: 1;
+        -webkit-user-select: none;
+        -webkit-text-fill-color: #333;
+        color: #333;
       }
     }
     .hidden {

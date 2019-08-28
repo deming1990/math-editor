@@ -146,6 +146,7 @@ export default {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-appearance: none;
     -webkit-touch-callout: none;
+    box-sizing: border-box;
   }
 </style>
 <style lang="less" scoped>
