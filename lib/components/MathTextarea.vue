@@ -253,7 +253,8 @@ export default {
      */
     onLineFeed({
       node,
-      cursorPosition
+      cursorPosition,
+      active = true
     }) {
       const handleTextNode = (beforeChildren, afterChildren, node, nodeIndex, cursorPosition) => {
         if(cursorPosition === 0) {
@@ -291,7 +292,9 @@ export default {
       this.trimLine(newRow.children)
       this.rows.splice(rowIndex, 1, row, newRow)
       this.$nextTick(() => {
-        helper.setElementFocus(newRow.children[0].uid, 0)
+        active 
+          ? helper.setElementFocus(newRow.children[0].uid, 0)
+          : helper.setElementFocus(newRow.children[newRow.children.length - 1].uid)
       })
     },
     onBoundaryDetection({
@@ -307,7 +310,8 @@ export default {
         } = res
         this.onLineFeed({
           node: nodeModel,
-          cursorPosition
+          cursorPosition,
+          active: false
         })
       }
     },

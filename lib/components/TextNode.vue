@@ -155,6 +155,10 @@ export default {
       outline: none;
       z-index: 10;
       font-family: @text-font-family;
+      &:disabled {
+        // 解决ios input disabled时input变成透明
+        opacity: 1;
+      }
     }
     .hidden {
       font-family: @text-font-family;
