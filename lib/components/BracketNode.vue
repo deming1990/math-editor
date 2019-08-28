@@ -91,7 +91,7 @@ export default {
     }
     &.bracket:before, 
     &.bracket:after {
-      width: 8px;
+      width: 10px;
     }
     &.absolute:before,
     &.absolute:after,
@@ -134,12 +134,12 @@ export default {
       }
       &.top-half:before {
         top: 0;
-        left: 3px;
+        left: 5px;
         border-left: 2px solid #000;
         border-top-left-radius: 20px;
       }
       &.top-half:after {
-        left: -2px;
+        left: 0px;
         bottom: 50%;
         border-right: 2px solid #000;
         border-bottom-right-radius: 20px;
@@ -149,13 +149,13 @@ export default {
         border-right: 2px solid #000;
       }
       &.bottom-half:before {
-        left: -2px;
+        left: 0px;
         bottom: 40%;
         border-right: 2px solid #000;
         border-top-right-radius: 20px;
       }
       &.bottom-half:after {
-        left: 3px;
+        left: 5px;
         bottom: 0;
         border-left: 2px solid;
         border-bottom-left-radius: 20px;
