@@ -91,7 +91,7 @@ export default {
     }
     &.bracket:before, 
     &.bracket:after {
-      width: 10px;
+      width: 8px;
     }
     &.absolute:before,
     &.absolute:after,
@@ -101,35 +101,12 @@ export default {
     }
     &.square-bracket:before,
     &.square-bracket:after {
-      border: 2px solid #000;
+      border-top: 2px solid #000;
+      border-bottom: 2px solid #000;
     }
     .bracket-wrapper {
       position: relative;
       padding: 0 4px;
-    }
-    &.square-bracket {
-      .bracket-wrapper {
-        &.bracket-wrapper:before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -1px;
-          bottom: 0;
-          width: 5px;
-          background: #fff;
-          z-index: 5;
-        }
-        &.bracket-wrapper:after {
-          content: '';
-          position: absolute;
-          top: 0;
-          right: -1px;
-          bottom: 0;
-          width: 5px;
-          background: #fff;
-          z-index: 5;
-        }
-      } 
     }
   }
   .brace-node {

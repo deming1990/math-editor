@@ -142,6 +142,11 @@ export default {
     font-style: italic;
     src: local("PingFang SC"), local("Microsoft YaHei"), local("Source Han Sans CN");
   }
+  * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+    -webkit-touch-callout: none;
+  }
 </style>
 <style lang="less" scoped>
   @border-color: #d3d3d3;
