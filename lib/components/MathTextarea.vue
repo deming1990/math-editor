@@ -49,7 +49,9 @@ export default {
       return helper.arrToStr(this.rows)
     },
     setValue(val) {
-      this.rows = NodeManager.cloneRows(helper.strToArr(val))
+      let newRows = NodeManager.cloneRows(helper.strToArr(val))
+      newRows = this.isPreviewMode ? Object.freeze(newRows) : newRows
+      this.rows = newRows
       this.$nextTick(() => {
         if(this.isPreviewMode) {
           // this.boundaryDetectionRows()
