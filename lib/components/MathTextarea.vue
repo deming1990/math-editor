@@ -52,7 +52,7 @@ export default {
       this.rows = NodeManager.cloneRows(helper.strToArr(val))
       this.$nextTick(() => {
         if(this.isPreviewMode) {
-          this.boundaryDetectionRows()
+          // this.boundaryDetectionRows()
         }
       })
     },
