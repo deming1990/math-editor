@@ -1,19 +1,22 @@
 <template>
   <div :class="mathEditorCss" :style="mathEditorStyles">
-    <div class="math-editor-header">
+    <div class="math-editor-header" v-if="isEditMode">
       <math-toolbar @categoryClick="onMathToolbarCategoryClick">
       </math-toolbar>
     </div>
     <div class="math-editor-body" ref="mathEditorBody">
-      <math-textarea 
+      <math-textarea
+        v-if="!isHtmlMode"
         ref="mathTextarea" 
         :class="{'fit-panel': panelVisible}"
         :style="mathTextareaStyles"></math-textarea>
-      <math-node-panel v-if="panelVisible" 
+      <math-node-panel 
+        v-if="panelVisible" 
         :category="currCategory" 
         @mathNodeSelect="onMathNodeSelect"
         @close="onMathNodePanelClose">
       </math-node-panel>
+      <div class="html-mode" v-if="isHtmlMode" v-html="rawHtml"></div>
     </div>
   </div>  
 </template>
@@ -56,7 +59,8 @@ export default {
       EDITOR_MODES,
       currCategory: '',
       panelVisible: false,
-      isDataLoading: false
+      isDataLoading: false,
+      rawHtml: ''
     }
   },
   computed: {
@@ -65,6 +69,9 @@ export default {
     },
     isPreviewMode() {
       return this.mode === EDITOR_MODES.PREVIEW
+    },
+    isHtmlMode() {
+      return this.mode === EDITOR_MODES.HTML
     },
     mathEditorCss() {
       return {
@@ -108,12 +115,18 @@ export default {
     getValue() {
       return this.$refs.mathTextarea.getValue()  
     },
+    getHtml() {
+      return this.$refs.mathTextarea.$el.outerHTML
+    },
     setValue(str) {
       this.globalVM.isDataLoading = true
       this.$refs.mathTextarea.setValue(str)
       setTimeout(() => {
         this.globalVM.isDataLoading = false
       }, 0)
+    },
+    setHtml(html) {
+      this.rawHtml = html
     },
     isEmpty() {
       return this.$refs.mathTextarea.isEmpty()
@@ -148,10 +161,19 @@ export default {
     -webkit-touch-callout: none;
     box-sizing: border-box;
   }
+  .html-mode {
+    .text-node {
+      input {
+        display: none;
+      }
+      span {
+        visibility: visible!important;
+      }
+    }  
+  }
 </style>
 <style lang="less" scoped>
   @border-color: #d3d3d3;
-
   .math-editor {
     width: 100%;
     height: 100%;

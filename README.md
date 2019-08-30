@@ -33,10 +33,15 @@ Vue.use(MathEditor)
 ## 使用示例
 
 ```html
-
+<!--  
+  mode: edit 编辑模式 preview 预览模式 html 预览模式(html)
+  height 高度
+  normalFontSize 一级字体大小 （html模式下字体大小源于输入时字体大小）
+  smallFontSize 二级字体大小 （html模式下字体大小源于输入时字体大小）
+-->
 <template>
-    <math-editor 
-        :mode="'edit'" 
+    <math-editor
+        :mode="'edit' || 'preview' || 'html'"
         :height="'180px'"
         :normalFontSize="20"
         :smallFontSize="20"
@@ -59,7 +64,7 @@ this.$refs.mathTextEditor.setValue(data)
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | :--- | :--- | :--- | :--- | :--- |
-| mode | 编辑器模式：编辑模式、预览模式，<br> 预览模式无法编辑| string | edit / preview| preview |
+| mode | 编辑器模式：编辑模式、预览模式，<br> 预览模式无法编辑| string | edit / preview / html | preview |
 | height | 编辑器高度 | string | - | 100% |
 | normalFontSize | 文本字体大小 | number | - | 16 |
 | smallFontSize | 角标字体大小，<br> 例如平方的指数部分 | number | - | 16 |
@@ -70,3 +75,5 @@ this.$refs.mathTextEditor.setValue(data)
 | :--- | :--- | :--- | :--- |
 | getValue | 获取公式编辑器的内容数据 | - | - |
 | setValue | 设置公式编辑器的内容数据 | string | 公式编辑器的内容数据是具有一定的格式JSON，<br> 因此setValue的数据只能来自getValue获取到的数据 |
+| getHtml | 获取公式编辑器的HTML | - | - |
+| setHtml | 设置公式编辑器的HTML | - | - |

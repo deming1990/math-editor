@@ -164,6 +164,7 @@ export default {
       }
     }
     .backend {
+      display: inline-block;
       font-family: @text-font-family;
       // 保留span中内容的空格与换行符
       white-space: pre;
