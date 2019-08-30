@@ -11,6 +11,7 @@
       <div class="tab-body-item">
         <math-editor 
           :mode="'edit'"
+          :textAreaWidth="'300px'"
           ref="mathEditorA">
         </math-editor>
       </div>

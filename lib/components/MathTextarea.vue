@@ -532,6 +532,7 @@ export default {
     .math-textarea {
       overflow-x: auto;
       overflow-y: hidden;
+      border: none!important;
     }  
   }
   .math-textarea {
