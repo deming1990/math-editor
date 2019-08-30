@@ -528,7 +528,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-  .preview-mode {
+  .preview-mode, .html-mode {
     .math-textarea {
       overflow-x: auto;
       overflow-y: hidden;

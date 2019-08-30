@@ -59,7 +59,7 @@ export default {
       border: 1px dashed @border-color;
     }
   }
-  .preview-mode {
+  .preview-mode, .html-mode {
     .number-node.empty {
       border: none;
     }  

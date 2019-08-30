@@ -77,7 +77,8 @@ export default {
       return {
         'math-editor': true,
         'edit-mode': this.isEditMode,
-        'preview-mode': this.isPreviewMode
+        'preview-mode': this.isPreviewMode,
+        'html-mode': this.isHtmlMode
       }
     },
     mathEditorStyles() {
@@ -183,7 +184,7 @@ export default {
       border: 1px solid @border-color;
       border-radius: 4px;
     }
-    &.preview-mode {
+    &.preview-mode, &.html-mode {
       display: block;
       height: auto;
       .math-editor-header {
