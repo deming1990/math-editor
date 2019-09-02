@@ -79,14 +79,14 @@ export default {
     &.absolute:before,
     &.square-bracket:before {
         left: -6px;
-        border-left: 2px solid #000;
+        border-left: 1px solid #000;
         border-radius: 50% 0 0 50%;
     }
     &.bracket:after,
     &.absolute:after,
     &.square-bracket:after {
         right: -6px;
-        border-right: 2px solid #000;
+        border-right: 1px solid #000;
         border-radius: 0 50% 50% 0;
     }
     &.bracket:before, 
@@ -101,8 +101,8 @@ export default {
     }
     &.square-bracket:before,
     &.square-bracket:after {
-      border-top: 2px solid #000;
-      border-bottom: 2px solid #000;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
     }
     .bracket-wrapper {
       position: relative;
@@ -129,39 +129,39 @@ export default {
       &.top-half {
         top: 10%;
         bottom: 40%;
-        border-left: 2px solid #000;
+        border-left: 1px solid #000;
       }
       &.top-half:before {
         top: -30%;
         height: 30%; 
-        left: -2px;
-        border-left: 2px solid #000;
+        left: -1px;
+        border-left: 1px solid #000;
         border-top-left-radius: 20px;
       }
       &.top-half:after {
-        left: -7px;
+        left: -6px;
         bottom: -30%;
         height: 30%;
-        border-right: 2px solid #000;
+        border-right: 1px solid #000;
         border-bottom-right-radius: 20px;
       }
       &.bottom-half {
         top: 60%;
         bottom: 90%;
-        border-left: 2px solid #000;
+        border-left: 1px solid #000;
       }
       &.bottom-half:before {
         top: -30%;
-        left: -7px;
+        left: -6px;
         height: 30%;
-        border-right: 2px solid #000;
+        border-right: 1px solid #000;
         border-top-right-radius: 20px;
       }
       &.bottom-half:after {
-        left: -2px;
+        left: -1px;
         bottom: -30%;
         height: 30%;
-        border-left: 2px solid #000;
+        border-left: 1px solid #000;
         border-bottom-left-radius: 20px;
       }
     }

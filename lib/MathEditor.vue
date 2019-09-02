@@ -44,11 +44,11 @@ export default {
     },
     normalFontSize: {
       type: Number,
-      default: 16
+      default: 20
     },
     smallFontSize: {
       type: Number,
-      default: 12
+      default: 16
     },
     textAreaWidth: {
       type: String
