@@ -51,7 +51,7 @@ const TABS = [
   {id: 3, name: 'HTML模式'}
 ]
 
-const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1567147756365","row-container",["5","6","7"],{"uid":"8","compType":"9","parent":"1","value":"10"},{"uid":"11","compType":"12","parent":"1","children":"13"},{"uid":"14","compType":"9","parent":"1","value":"10"},"node-1567147756365","text-node","123123","node-1567147756368","curly-brace-node",["15"],"node-1567147756370",{"uid":"16","compType":"17","parent":"6","slot":"18","children":"19"},"node-1567147756367","number-node","value",["20"],{"uid":"21","compType":"9","parent":"15","slot":"18","value":"10"},"node-1567147756366"]`
+const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1567404764606","row-container",["5","6","7","8","9","10","11","12","13"],{"uid":"14","compType":"15","parent":"1","value":"16"},{"uid":"17","compType":"18","parent":"1"},{"uid":"19","compType":"15","parent":"1","value":"20"},{"uid":"21","compType":"22","parent":"1"},{"uid":"23","compType":"15","parent":"1","value":"24"},{"uid":"25","compType":"26","parent":"1"},{"uid":"27","compType":"15","parent":"1","value":"28"},{"uid":"29","compType":"30","parent":"1"},{"uid":"31","compType":"15","parent":"1","value":"32"},"node-1567404764626","text-node","123","node-1567404764627","division-node","node-1567404764629","123 ","node-1567404764630","multiplication-node","node-1567404764632","123213","node-1567404764633","plus-node","node-1567404764637","","node-1567404764636","greater-equal-node","node-1567404764635","12323"]`;
 
 export default {
   data() {

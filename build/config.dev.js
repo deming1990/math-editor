@@ -50,7 +50,7 @@ module.exports = merge(baseConfig, {
   devServer: {
     contentBase: resolve('dist'),
     compress: true,
-    host: '172.23.114.99',
+    host: '172.23.114.33',
     port: 9000
   }
 })

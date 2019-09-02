@@ -10,7 +10,7 @@
         <div class="brace top-half"></div>
         <div class="brace bottom-half"></div>
       </div>
-      <div style="margin-right: -6px;">
+      <div style="height:fit-content">
         <basic-node v-for="item in model.children" :model="item" :key="item.uid" />
       </div>
       <div class="curly-brace right">
@@ -113,51 +113,55 @@ export default {
     position: relative;
     display: inline-flex;
     align-items: stretch;
+    margin: 0 3px;
     .curly-brace {
       position: relative;
-      width: 10px;
+      width: 5px;
       flex: 1;
-      -webkit-writing-mode: vertical-rl;
-      writing-mode: tb-rl;
     }
     .curly-brace.right {
-      margin-left: 5px;
       transform: rotate(180deg)
     }
     .brace {
-      margin: 10% 0;
+      position: absolute;
       height: 30%;
       width: 5px;
       &.top-half {
+        top: 10%;
+        bottom: 40%;
         border-left: 2px solid #000;
-        margin-left: -2px;
       }
       &.top-half:before {
-        top: 0;
-        left: 5px;
+        top: -30%;
+        height: 30%; 
+        left: -2px;
         border-left: 2px solid #000;
         border-top-left-radius: 20px;
       }
       &.top-half:after {
-        left: 0px;
-        bottom: 50%;
+        left: -7px;
+        bottom: -30%;
+        height: 30%;
         border-right: 2px solid #000;
         border-bottom-right-radius: 20px;
       }
       &.bottom-half {
-        margin-top: 60%;
-        border-right: 2px solid #000;
+        top: 60%;
+        bottom: 90%;
+        border-left: 2px solid #000;
       }
       &.bottom-half:before {
-        left: 0px;
-        bottom: 40%;
+        top: -30%;
+        left: -7px;
+        height: 30%;
         border-right: 2px solid #000;
         border-top-right-radius: 20px;
       }
       &.bottom-half:after {
-        left: 5px;
-        bottom: 0;
-        border-left: 2px solid;
+        left: -2px;
+        bottom: -30%;
+        height: 30%;
+        border-left: 2px solid #000;
         border-bottom-left-radius: 20px;
       }
     }
