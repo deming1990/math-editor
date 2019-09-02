@@ -9,9 +9,7 @@
         <template>
           <img v-if="node.iconImage" :src="node.iconImage" />
         </template>
-        <template v-if="node.iconText">
-          {{node.iconText}}
-        </template>
+        <span v-if="node.iconText" v-html="node.iconText"></span>
       </div>
     </div>
   </div>

@@ -3,9 +3,7 @@
     <li v-for="category in categories" 
       class="math-toolbar-item" 
       :key="category.code"
-      @click="onCategoryClick(category.code)">
-      {{category.name}}
-    </li>
+      @click="onCategoryClick(category.code)">{{category.name}}</li>
   </ul>  
 </template>
 <script>
