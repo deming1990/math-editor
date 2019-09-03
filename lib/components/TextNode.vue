@@ -171,6 +171,6 @@ export default {
       &.hidden {
         visibility: hidden;
       }
-    }   
+    }
   }
 </style>

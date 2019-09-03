@@ -1,6 +1,6 @@
 <template>
   <div :id="model.uid" 
-    :class="{'number-node': true, 'empty': isEmpty}"
+    :class="{'number-node': true, 'empty': isEmpty, 'italic-node': isItalicNode}"
     :style="nodeStyles"
     @click="onClick" ref="numberNode">
     <basic-node v-for="item in model.children" 
@@ -15,7 +15,6 @@ import NodeManager from '../models/NodeManager'
 import helper from '../utils/helper.js'
 import compMixin from './component-mixin'
 export default {
-  name: NODE_TYPES.NUMBER_NODE,
   mixins: [compMixin],
   props: {
     model: Object
@@ -30,6 +29,9 @@ export default {
       const minWidth = `${this._isScriptChild ? this._smallHeight : this._normalHeight}px`
       this.isEmpty && (styles['minWidth'] = minWidth)
       return Object.assign({}, this._numberNodeStyles, styles)
+    },
+    isItalicNode() {
+      return this.model.compType === NODE_TYPES.ITALIC_NODE
     }
   },
   mounted() {
@@ -49,6 +51,19 @@ export default {
   }
 }
 </script>
+<style lang="less">
+  @import '../styles/variables.less';
+  .italic-node {
+    .text-node {
+      .backend {
+        font-family: @italic-font-family!important;
+      }
+      input {
+        font-family: @italic-font-family!important;
+      }
+    }
+  }
+</style>
 <style lang="less" scoped>
   @import '../styles/variables.less';
   @border-color: #333;
