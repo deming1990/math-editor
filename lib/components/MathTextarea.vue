@@ -22,6 +22,7 @@ import NodeManager from '../models/NodeManager'
 import helper from '../utils/helper'
 import compMixin from './component-mixin'
 import BoundaryDetection from '../utils/boundaryDetection'
+import { setTimeout } from 'timers';
 
 const isRowContainer = (node) => {
   return node 
@@ -524,6 +525,19 @@ export default {
           })
         })
       }
+      // 折行存在空行问题
+      setTimeout(() => {
+        let len = this.rows.length - 1
+        while(len > 0) {
+          const children = this.rows[len].children
+          if(children.length === 1 
+          && NodeManager.isTextNode(children[0]) 
+          && children[0].value.length === 0) {
+            this.rows.splice(len, 1)
+          }
+          len--
+        }
+      }, 0)
     }
   }
 }
