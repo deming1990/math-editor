@@ -54,7 +54,7 @@ export default {
       this.rows = newRows
       this.$nextTick(() => {
         if(this.isPreviewMode) {
-          // this.boundaryDetectionRows()
+          this.boundaryDetectionRows()
         }
       })
     },
@@ -518,9 +518,11 @@ export default {
       })
       let index = $rowCons.length - 1
       for(;index >= 0;index--) {
-        this.onBoundaryDetection({
-          rowModel: this.rows[index],
-          rowContainer: $rowCons[index]
+        this.$nextTick(() => {
+          this.onBoundaryDetection({
+            rowModel: this.rows[index],
+            rowContainer: $rowCons[index]
+          })
         })
       }
     }
