@@ -528,7 +528,7 @@ export default {
       // 折行存在空行问题
       setTimeout(() => {
         let len = this.rows.length - 1
-        while(len > 0) {
+        while(len >= 0) {
           const children = this.rows[len].children
           if(children.length === 1 
           && NodeManager.isTextNode(children[0]) 
