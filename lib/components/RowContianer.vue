@@ -113,7 +113,6 @@ export default {
   .row-container {
     padding: 2.5px 5px 2.5px 5px;
     font-size: 15px;
-    // display: flex;
     box-sizing: border-box;
   }
 </style>

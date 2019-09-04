@@ -58,6 +58,7 @@ export default {
     position: relative;
     height: fit-content;
     width: fit-content;
+    display: inline-block;
   }
   .bracket-node {
     position: relative;

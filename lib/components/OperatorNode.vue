@@ -86,7 +86,6 @@ export default {
     position: relative;
     height: fit-content;
     display: inline-flex;
-    align-items: center;
     .prefix, 
     .postfix,
     .content {
