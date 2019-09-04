@@ -114,5 +114,6 @@ export default {
     padding: 2.5px 5px 2.5px 5px;
     font-size: 15px;
     box-sizing: border-box;
+    display: flex;
   }
 </style>

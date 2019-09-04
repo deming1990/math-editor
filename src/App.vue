@@ -8,10 +8,9 @@
       </div>
     </div>
     <div class="tab-body">
-      <div class="tab-body-item">
+      <div class="tab-body-item big">
         <math-editor 
           :mode="'edit'"
-          :textAreaWidth="'300px'"
           ref="mathEditorA">
         </math-editor>
       </div>
@@ -51,7 +50,7 @@ const TABS = [
   {id: 3, name: 'HTML模式'}
 ]
 
-const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1567404764606","row-container",["5","6","7","8","9","10","11","12","13"],{"uid":"14","compType":"15","parent":"1","value":"16"},{"uid":"17","compType":"18","parent":"1"},{"uid":"19","compType":"15","parent":"1","value":"20"},{"uid":"21","compType":"22","parent":"1"},{"uid":"23","compType":"15","parent":"1","value":"24"},{"uid":"25","compType":"26","parent":"1"},{"uid":"27","compType":"15","parent":"1","value":"28"},{"uid":"29","compType":"30","parent":"1"},{"uid":"31","compType":"15","parent":"1","value":"32"},"node-1567404764626","text-node","123","node-1567404764627","division-node","node-1567404764629","123 ","node-1567404764630","multiplication-node","node-1567404764632","123213","node-1567404764633","plus-node","node-1567404764637","","node-1567404764636","greater-equal-node","node-1567404764635","12323"]`;
+const result = `[["1","2","3"],{"uid":"4","compType":"5","children":"6"},{"uid":"7","compType":"5","children":"8"},{"uid":"9","compType":"5","children":"10"},"row-1567580687870","row-container",["11"],"row-1567580687871",["12"],"row-1567580687872",["13"],{"uid":"14","compType":"15","parent":"1","value":"16"},{"uid":"17","compType":"15","parent":"2","value":"18"},{"uid":"19","compType":"15","parent":"3","value":"20"},"node-1567580687870","text-node","11111111111111111111111111111111111111111111","node-1567580687871","222222222222222222222222222222","node-1567580687872","333333333333333333333333333333"]`;
 
 export default {
   data() {
@@ -119,7 +118,7 @@ html, body {
       overflow: hidden;
       padding: 5px;
       &.big {
-        flex: 1;
+        flex: 2;
       }
     }
   }

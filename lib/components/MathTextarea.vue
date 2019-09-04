@@ -50,7 +50,7 @@ export default {
     },
     setValue(val) {
       let newRows = NodeManager.cloneRows(helper.strToArr(val))
-      newRows = this.isPreviewMode ? Object.freeze(newRows) : newRows
+      // newRows = this.isPreviewMode ? Object.freeze(newRows) : newRows
       this.rows = newRows
       this.$nextTick(() => {
         if(this.isPreviewMode) {
@@ -516,8 +516,7 @@ export default {
           $rowCons.push(this.$refs[item][0].$el)
         }
       })
-      let index = $rowCons.length - 1
-      for(;index >= 0;index--) {
+      for(let index = $rowCons.length - 1;index >= 0;index--) {
         this.$nextTick(() => {
           this.onBoundaryDetection({
             rowModel: this.rows[index],
