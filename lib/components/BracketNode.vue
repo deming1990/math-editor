@@ -57,6 +57,7 @@ export default {
   .bracket-container {
     position: relative;
     height: fit-content;
+    width: fit-content;
   }
   .bracket-node {
     position: relative;
