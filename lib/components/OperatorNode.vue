@@ -1,15 +1,15 @@
 <template>
-  <div class="inline-node" :id="model.uid">
+  <div class="inline-node" :id="model.uid" ref="operatorNode">
     <template v-if="hasPrefix || hasPostfix">
       <div 
         v-if="hasPrefix" 
         class="prefix" 
-        :style="_fontStyles" v-html="OPERATOR_CHARS[model.compType]"></div>
+        :style="_fontStyles" v-html="OPERATOR_CHARS[model.compType]" ref="operatorNodePrefix"></div>
       <basic-node v-for="item in model.children" :model="item" :key="item.uid" />
       <div 
         v-if="hasPostfix" 
         class="postfix" 
-        :style="_fontStyles" v-html="OPERATOR_CHARS[model.compType]"></div>
+        :style="_fontStyles" v-html="OPERATOR_CHARS[model.compType]" ref="operatorNodePostfix"></div>
     </template>
     <template v-else>
       <div 
@@ -71,6 +71,9 @@ export default {
       OPERATOR_CHARS
     }
   },
+  mounted() {
+    this._addFormatListener(this.$refs.operatorNode)
+  },
   methods: {
     handleOperatorClick() {
       this._dispatch('.row-container', 'operatorClick', {
@@ -84,11 +87,11 @@ export default {
   @import '../styles/variables.less';
   .inline-node {
     position: relative;
-    height: fit-content;
     display: inline-flex;
     .prefix, 
     .postfix,
     .content {
+      position: relative;
       font-family: @text-font-family;
       width: max-content;
     }

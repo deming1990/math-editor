@@ -6,7 +6,6 @@
       v-for="row in rows"
       :model="row"
       :key="row.uid"
-      :ref="'rowContainer' + row.uid"
       @changeCurrentFocusNode="onChangeCurrentFocusNode"
       @moveCursor="onMoveCursor"
       @deleteNode="onDeleteNode"
@@ -22,11 +21,15 @@ import NodeManager from '../models/NodeManager'
 import helper from '../utils/helper'
 import compMixin from './component-mixin'
 import BoundaryDetection from '../utils/boundaryDetection'
-import { setTimeout } from 'timers';
 
 const isRowContainer = (node) => {
   return node 
     && (node instanceof RowContianer || node.compType === 'row-container')
+}
+
+const hasChildren = (node) => {
+  return node.children
+    && node.children.length > 0
 }
 
 export default {
@@ -51,9 +54,8 @@ export default {
     },
     setValue(val) {
       let newRows = NodeManager.cloneRows(helper.strToArr(val))
-      // newRows = this.isPreviewMode ? Object.freeze(newRows) : newRows
       this.rows = newRows
-      this.$nextTick(() => {
+      this.$nextTick(async () => {
         if(this.isPreviewMode) {
           this.boundaryDetectionRows()
         }
@@ -254,7 +256,7 @@ export default {
     /**
      * 处理换行
      */
-    onLineFeed({
+    async onLineFeed({
       node,
       cursorPosition,
       active = true
@@ -272,7 +274,8 @@ export default {
           afterChildren.unshift(afterNode)
         }
       }
-      if(!isRowContainer(node.parent)) return
+      if(!isRowContainer(node.parent)) 
+        return Promise.resolve()
       const row = node.parent
       const rowIndex = this.rows.indexOf(row)
       const children = row.children
@@ -294,13 +297,16 @@ export default {
       this.trimLine(row.children)
       this.trimLine(newRow.children)
       this.rows.splice(rowIndex, 1, row, newRow)
-      this.$nextTick(() => {
-        active 
-          ? helper.setElementFocus(newRow.children[0].uid, 0)
-          : helper.setElementFocus(newRow.children[newRow.children.length - 1].uid)
+      return new Promise((resolve, reject) => {
+        this.$nextTick(() => {
+          active 
+            ? helper.setElementFocus(newRow.children[0].uid, 0)
+            : helper.setElementFocus(newRow.children[newRow.children.length - 1].uid)
+          resolve()
+        })
       })
     },
-    onBoundaryDetection({
+    async onBoundaryDetection({
       rowModel,
       rowContainer,
       changedTargets
@@ -311,7 +317,7 @@ export default {
           nodeModel,
           cursorPosition
         } = res
-        this.onLineFeed({
+        await this.onLineFeed({
           node: nodeModel,
           cursorPosition,
           active: false
@@ -328,6 +334,20 @@ export default {
      * 添加数学节点
      */
     addMathNode(compType) {
+      const setFocus = (mathNode, textNode) => {
+        this.$nextTick(() => {
+          if(hasChildren(mathNode)) {
+            const firstChild = mathNode.children[0]
+            if(NodeManager.isNumberNode(firstChild)) {
+              helper.setElementFocus(firstChild.children[0].uid, 0)
+            } else if(NodeManager.isTextNode(firstChild)) {
+              helper.setElementFocus(firstChild.uid, 0)
+            }
+          } else {
+            helper.setElementFocus(textNode.uid, 0)
+          }
+        })
+      }
       const mathNode = NodeManager.createNode(compType)
       if(this.currentFocusNode) {
         const currentFocusNode = this.currentFocusNode
@@ -362,17 +382,15 @@ export default {
           afterTextNode.value = currentFocusNode.value.substring(currentCursorPosition)
           parent.children.splice(index, 1, beforeTextNode, mathNode, afterTextNode)
         }
-        this.$nextTick(() => {
-          helper.setElementFocus(afterTextNode.uid, 0)
-        })
+
+        NodeManager.isNumberNode()
+        setFocus(mathNode, afterTextNode)
       } else {
         const lastRow = this.getLastRow()
         const afterTextNode = NodeManager.createTextNode()
         afterTextNode.parent = lastRow
         lastRow.children.push(mathNode, afterTextNode)
-        this.$nextTick(() => {
-          helper.setElementFocus(afterTextNode.uid, 0)
-        })
+        setFocus(mathNode, afterTextNode)
       }
     },
     getNextTextNode(node) {
@@ -490,10 +508,6 @@ export default {
     onOperatorClick({
       node
     }) {
-      const hasChildren = (node) => {
-        return node.children
-          && node.children.length > 0
-      }
       const parent = node.parent
       if(hasChildren(parent)) {
         let index = parent.children.indexOf(node)
@@ -507,37 +521,30 @@ export default {
         }
       }
     },
-    boundaryDetectionRows() {
-      const $rowCons = []
-      Object.keys(this.$refs).filter(key => {
-        return key.indexOf('rowContainer') > -1
-      }).forEach(item => {
-        if(this.$refs[item] 
-          && this.$refs[item].length > 0) {
-          $rowCons.push(this.$refs[item][0].$el)
-        }
-      })
-      for(let index = $rowCons.length - 1;index >= 0;index--) {
-        this.$nextTick(() => {
-          this.onBoundaryDetection({
-            rowModel: this.rows[index],
-            rowContainer: $rowCons[index]
-          })
+    async boundaryDetectionRows() {
+      const onBoundaryDetection = this.onBoundaryDetection.bind(this)
+      const handleBoundaryDetection = async (rows, index) => {
+        await onBoundaryDetection({
+          rowModel: rows[index],
+          rowContainer: document.getElementById(rows[index].uid)
         })
-      }
-      // 折行存在空行问题
-      setTimeout(() => {
-        let len = this.rows.length - 1
-        while(len >= 0) {
-          const children = this.rows[len].children
-          if(children.length === 1 
-          && NodeManager.isTextNode(children[0]) 
-          && children[0].value.length === 0) {
-            this.rows.splice(len, 1)
-          }
-          len--
+        index += 1
+        if(rows.length > index) {
+          await handleBoundaryDetection(rows, index)
         }
-      }, 0)
+      }
+      await handleBoundaryDetection(this.rows, 0)
+      // 折行存在空行问题
+      let len = this.rows.length - 1
+      while(len >= 0) {
+        const children = this.rows[len].children
+        if(children.length === 1 
+        && NodeManager.isTextNode(children[0]) 
+        && children[0].value.length === 0) {
+          this.rows.splice(len, 1)
+        }
+        len--
+      }
     }
   }
 }
@@ -555,7 +562,6 @@ export default {
     height: 100%;
     width: 100%;
     line-height: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto;
   }
 </style>

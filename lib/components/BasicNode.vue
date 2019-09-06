@@ -9,7 +9,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-  .node {
-    box-sizing: border-box;
+  .basic-node {
+    box-sizing: content-box;
   }
 </style>

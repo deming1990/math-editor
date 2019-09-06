@@ -16,6 +16,7 @@
     "build": "./node_modules/.bin/webpack-cli --config ./build/config.pro.js"
   },
   "dependencies": {
+    "@babel/runtime": "^7.5.5",
     "flatted": "^2.0.1",
     "vue": "^2.6.10"
   },
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.4",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",

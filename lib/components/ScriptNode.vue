@@ -61,12 +61,12 @@ export default {
     resizeValuePosition() {
       if(this.hasSuperScript) {
         let height = parseFloat(getComputedStyle(this.$refs.superScript).height)
-        height -= this._smallHeight / 2
+        height -= 10
         this.$set(this.valueStyle, 'marginTop', `${height}px`)
       }
       if(this.hasSubScript) {
         let height = parseFloat(getComputedStyle(this.$refs.subScript).height)
-        height -= this._smallHeight / 2
+        height -= 10
         this.$set(this.valueStyle, 'marginBottom', `${height}px`)
       }
     },
@@ -89,7 +89,6 @@ export default {
   @import '../styles/variables.less';
   .square-node {
     position: relative;
-    height: fit-content;
     display: inline-flex;
     &.sub {
       align-items: flex-end;

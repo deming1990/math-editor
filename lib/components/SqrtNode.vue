@@ -94,7 +94,6 @@ export default {
   @import '../styles/variables.less';
   .sqrt-node {
     position: relative;
-    height: fit-content;
     display: inline-flex;
   }
   .sqrt-node-nth {
@@ -107,7 +106,7 @@ export default {
     position: relative;
     margin-left: 21px;
     display: inline-flex;
-    align-items: center;
+    // align-items: center;
     .sqrt-node-part1 {
       position: absolute;
       left: -20px;

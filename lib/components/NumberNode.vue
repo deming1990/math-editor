@@ -1,6 +1,6 @@
 <template>
   <div :id="model.uid" 
-    :class="{'number-node': true, 'empty': isEmpty, 'italic-node': isItalicNode}"
+    :class="{'number-node': true, 'italic-node': isItalicNode}"
     :style="nodeStyles"
     @click="onClick" ref="numberNode">
     <basic-node v-for="item in model.children" 
@@ -69,14 +69,13 @@ export default {
   @border-color: #333;
   .number-node {
     position: relative;
+    height: fit-content;
+    border: 1px dashed @border-color;
     display: inline-flex;
-    &.empty {
-      border: 1px dashed @border-color;
-    }
   }
   .preview-mode, .html-mode {
-    .number-node.empty {
+    .number-node {
       border: none;
-    }  
+    }
   }
 </style>

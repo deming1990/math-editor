@@ -42,7 +42,6 @@ export default {
 
   .fractions-node {
     position: relative;
-    height: fit-content;
     width: fit-content;
     margin: 0 5px;
     display: inline-flex;

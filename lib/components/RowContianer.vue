@@ -28,7 +28,8 @@ export default {
   mounted() {
     this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
       if(!this.isPreviewMode && !this.isDataLoading) {
-        this.boundaryDetection(mutationsList)
+        // 注释掉边界检测
+        // this.boundaryDetection(mutationsList)
       }
     })
   },
@@ -114,6 +115,8 @@ export default {
     padding: 2.5px 5px 2.5px 5px;
     font-size: 15px;
     box-sizing: border-box;
+    white-space: nowrap;
     display: flex;
+    align-items: flex-start;
   }
 </style>
