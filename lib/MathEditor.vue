@@ -156,7 +156,7 @@ export default {
     font-style: italic;
     src: local("PingFang SC"), local("Microsoft YaHei"), local("Source Han Sans CN");
   }
-  * {
+  .math-editor * {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-appearance: none;
     -webkit-touch-callout: none;
