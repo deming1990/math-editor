@@ -26,7 +26,7 @@ export default {
     model: Object
   },
   mounted() {
-    if(this.isEditMode) {
+    if(this.isEditMode && !this.isDataLoading) {
       this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
           // 注释掉边界检测
           if(this.isEditLineFeed) {
