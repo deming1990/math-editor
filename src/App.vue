@@ -50,7 +50,7 @@ const TABS = [
   {id: 3, name: 'HTML模式'}
 ]
 
-const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1568167399462","row-container",["5","6","7","8","9","10","11","12","13"],{"uid":"14","compType":"15","parent":"1","value":"16"},{"uid":"17","compType":"18","parent":"1"},{"uid":"19","compType":"15","parent":"1","value":"20"},{"uid":"21","compType":"22","parent":"1","children":"23"},{"uid":"24","compType":"15","parent":"1","value":"25"},{"uid":"26","compType":"18","parent":"1"},{"uid":"27","compType":"15","parent":"1","value":"20"},{"uid":"28","compType":"29","parent":"1","children":"30"},{"uid":"31","compType":"15","parent":"1","value":"32"},"node-1568167399468","text-node","1231","node-1568167399470","minus-node","node-1568167399472","","node-1568167399467","fractions-node",["33","34"],"node-1568167399474","2","node-1568167399473","node-1568167399481","node-1568167399480","square-node",["35","36"],"node-1568167399475","3",{"uid":"37","compType":"38","parent":"8","slot":"39","children":"40"},{"uid":"41","compType":"38","parent":"8","slot":"42","children":"43"},{"uid":"44","compType":"38","parent":"12","slot":"45","children":"46"},{"uid":"47","compType":"38","parent":"12","slot":"48","children":"49"},"node-1568167399464","number-node","super_value",["50"],"node-1568167399466","sub_value",["51"],"node-1568167399477","value",["52"],"node-1568167399479","super_script",["53"],{"uid":"54","compType":"15","parent":"33","slot":"45","value":"55"},{"uid":"56","compType":"15","parent":"34","slot":"45","value":"55"},{"uid":"57","compType":"15","parent":"35","slot":"45","value":"58"},{"uid":"59","compType":"15","parent":"36","slot":"45","value":"58"},"node-1568167399463","123","node-1568167399465","node-1568167399476","23","node-1568167399478"]`
+const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1568194759389","row-container",["5","6","7","8","9","10","11","12","13","14","15"],{"uid":"16","compType":"17","parent":"1","value":"18"},{"uid":"19","compType":"20","parent":"1"},{"uid":"21","compType":"17","parent":"1","value":"22"},{"uid":"23","compType":"20","parent":"1"},{"uid":"24","compType":"17","parent":"1","value":"22"},{"uid":"25","compType":"20","parent":"1"},{"uid":"26","compType":"17","parent":"1","value":"22"},{"uid":"27","compType":"20","parent":"1"},{"uid":"28","compType":"17","parent":"1","value":"22"},{"uid":"29","compType":"20","parent":"1"},{"uid":"30","compType":"17","parent":"1","value":"22"},"node-1568194759388","text-node","123","node-1568194759389","pi-node","node-1568194759393","","node-1568194759392","node-1568194759396","node-1568194759395","node-1568194759399","node-1568194759398","node-1568194759402","node-1568194759401","node-1568194759391"]`
 
 export default {
   data() {
@@ -68,7 +68,7 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
-      this.$refs.mathEditorB.setValue(this.result)
+      this.$refs.mathEditorB.setValue(result)
     },
     handleHtml() {
       const html = this.$refs.mathEditorA.getHtml()
