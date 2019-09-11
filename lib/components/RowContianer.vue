@@ -29,7 +29,9 @@ export default {
     if(this.isEditMode) {
       this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
           // 注释掉边界检测
-          this.boundaryDetection(mutationsList)
+          if(this.isEditLineFeed) {
+            this.boundaryDetection(mutationsList)
+          }
       })
     }
   },

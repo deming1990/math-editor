@@ -73,6 +73,9 @@ export default {
     isHtmlMode() {
       return this.mode === EDITOR_MODES.HTML
     },
+    isEditLineFeed() {
+      return this.mode === EDITOR_MODES.EDIT && !!this.textAreaWidth
+    },
     mathEditorCss() {
       return {
         'math-editor': true,
@@ -101,6 +104,8 @@ export default {
     const data = {
       isPreviewMode: this.isPreviewMode,
       isEditMode: this.isEditMode,
+      isEditLineFeed: this.isEditLineFeed,
+      isHtmlMode: this.isHtmlMode,
       isDataLoading: false,
       _normalFontSize: this.normalFontSize,
       _normalHeight: this.normalFontSize + 2,
