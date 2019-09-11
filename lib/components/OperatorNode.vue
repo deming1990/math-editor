@@ -15,7 +15,7 @@
       <div 
         class="content" 
         :style="contentStyles" 
-        @click="handleOperatorClick" v-html="OPERATOR_CHARS[model.compType]"></div>
+        @click="handleOperatorClick" v-html="!isPINode ? OPERATOR_CHARS[model.compType] : PI_NODE"></div>
     </template>
   </div>
 </template>
@@ -46,7 +46,8 @@ export default {
   },
   data() {
     return {
-      OPERATOR_CHARS
+      OPERATOR_CHARS,
+      PI_NODE: '<div class="math-pi"></div>'
     }
   },
   computed: {
@@ -61,6 +62,11 @@ export default {
       return [
         NODE_TYPES.DEGREE_NODE,
         NODE_TYPES.PRECENT_NODE
+      ].includes(this.model.compType)
+    },
+    isPINode() {
+      return [
+        NODE_TYPES.PI_NODE
       ].includes(this.model.compType)
     },
     contentStyles() {
@@ -100,6 +106,12 @@ export default {
   }
 }
 </script>
+<style lang="less">
+  .math-pi:before{
+    display: inline-block;
+    content:"\03c0";
+  }
+</style>
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .inline-node {
