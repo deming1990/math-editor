@@ -44,6 +44,11 @@ export default {
   props: {
     model: Object
   },
+  data() {
+    return {
+      OPERATOR_CHARS
+    }
+  },
   computed: {
     hasPrefix() {
       return [
@@ -66,13 +71,25 @@ export default {
       return Object.assign({}, this._fontStyles, styles)
     }
   },
-  data() {
-    return {
-      OPERATOR_CHARS
+  watch: {
+    model: {
+      handler(val) {
+        if(val && this.isPreviewMode) {
+          this.$nextTick(() => {
+            this._format()
+          })
+        }
+      },
+      immediate: true
     }
   },
   mounted() {
-    this._addFormatListener(this.$refs.operatorNode)
+    if(this.isEditMode) {
+      this._addFormatListener(this.$refs.operatorNode)
+    }
+  },
+  destroyed() {
+    this._removeFormatListener()
   },
   methods: {
     handleOperatorClick() {

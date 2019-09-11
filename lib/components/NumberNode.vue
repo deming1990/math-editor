@@ -34,8 +34,22 @@ export default {
       return this.model.compType === NODE_TYPES.ITALIC_NODE
     }
   },
+  watch: {
+    model: {
+      handler(val) {
+        if(val && this.isPreviewMode) {
+          this.$nextTick(() => {
+            this._format()
+          })
+        }
+      },
+      immediate: true
+    }
+  },
   mounted() {
-    this._addFormatListener(this.$refs.numberNode)
+    if(this.isEditMode) {
+      this._addFormatListener(this.$refs.numberNode)
+    }
   },
   destroyed() {
     this._removeFormatListener()

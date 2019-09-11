@@ -100,6 +100,7 @@ export default {
   provide() {
     const data = {
       isPreviewMode: this.isPreviewMode,
+      isEditMode: this.isEditMode,
       isDataLoading: false,
       _normalFontSize: this.normalFontSize,
       _normalHeight: this.normalFontSize + 2,

@@ -26,15 +26,28 @@ export default {
     model: Object
   },
   mounted() {
-    this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
-      if(!this.isPreviewMode && !this.isDataLoading) {
-        // 注释掉边界检测
-        // this.boundaryDetection(mutationsList)
-      }
-    })
+    if(this.isEditMode) {
+      this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
+          // 注释掉边界检测
+          this.boundaryDetection(mutationsList)
+      })
+    }
   },
   destroyed() {
     this._removeFormatListener()
+  },
+  watch: {
+    model: {
+      handler(val) {
+        if(val && this.isPreviewMode) {
+          this.$nextTick(() => {
+            // 上线相对位置计算
+            this._format()
+          })
+        }
+      },
+      immediate: true
+    }
   },
   methods: {
     onRowContainerClick(evt) {

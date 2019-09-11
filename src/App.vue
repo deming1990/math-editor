@@ -50,7 +50,7 @@ const TABS = [
   {id: 3, name: 'HTML模式'}
 ]
 
-const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1567995880263","row-container",["5","6","7","8","9"],{"uid":"10","compType":"11","parent":"1","value":"12"},{"uid":"13","compType":"14","parent":"1","children":"15"},{"uid":"16","compType":"11","parent":"1","value":"17"},{"uid":"18","compType":"19","parent":"1","children":"20"},{"uid":"21","compType":"11","parent":"1","value":"22"},"node-1567995880263","text-node","123","node-1567995880266","sqrt-node",["23"],"node-1567995880268","323","node-1567995880271","sin-node",["24"],"node-1567995880273","",{"uid":"25","compType":"26","parent":"6","slot":"27","children":"28"},{"uid":"29","compType":"26","parent":"8","slot":"27","children":"30"},"node-1567995880265","number-node","value",["31"],"node-1567995880270",["32"],{"uid":"33","compType":"11","parent":"23","slot":"27","value":"34"},{"uid":"35","compType":"11","parent":"24","slot":"27","value":"36"},"node-1567995880264","12321323","node-1567995880269","12323232323"]`
+const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1568167399462","row-container",["5","6","7","8","9","10","11","12","13"],{"uid":"14","compType":"15","parent":"1","value":"16"},{"uid":"17","compType":"18","parent":"1"},{"uid":"19","compType":"15","parent":"1","value":"20"},{"uid":"21","compType":"22","parent":"1","children":"23"},{"uid":"24","compType":"15","parent":"1","value":"25"},{"uid":"26","compType":"18","parent":"1"},{"uid":"27","compType":"15","parent":"1","value":"20"},{"uid":"28","compType":"29","parent":"1","children":"30"},{"uid":"31","compType":"15","parent":"1","value":"32"},"node-1568167399468","text-node","1231","node-1568167399470","minus-node","node-1568167399472","","node-1568167399467","fractions-node",["33","34"],"node-1568167399474","2","node-1568167399473","node-1568167399481","node-1568167399480","square-node",["35","36"],"node-1568167399475","3",{"uid":"37","compType":"38","parent":"8","slot":"39","children":"40"},{"uid":"41","compType":"38","parent":"8","slot":"42","children":"43"},{"uid":"44","compType":"38","parent":"12","slot":"45","children":"46"},{"uid":"47","compType":"38","parent":"12","slot":"48","children":"49"},"node-1568167399464","number-node","super_value",["50"],"node-1568167399466","sub_value",["51"],"node-1568167399477","value",["52"],"node-1568167399479","super_script",["53"],{"uid":"54","compType":"15","parent":"33","slot":"45","value":"55"},{"uid":"56","compType":"15","parent":"34","slot":"45","value":"55"},{"uid":"57","compType":"15","parent":"35","slot":"45","value":"58"},{"uid":"59","compType":"15","parent":"36","slot":"45","value":"58"},"node-1568167399463","123","node-1568167399465","node-1568167399476","23","node-1568167399478"]`
 
 export default {
   data() {
@@ -68,7 +68,7 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
-      this.$refs.mathEditorB.setValue(this.result)
+      this.$refs.mathEditorB.setValue(result)
     },
     handleHtml() {
       const html = this.$refs.mathEditorA.getHtml()
