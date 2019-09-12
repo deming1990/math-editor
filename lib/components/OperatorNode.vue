@@ -15,7 +15,10 @@
       <div 
         class="content" 
         :style="contentStyles" 
-        @click="handleOperatorClick" v-html="!isPINode ? OPERATOR_CHARS[model.compType] : PI_NODE"></div>
+        @click="handleOperatorClick">
+        <div v-if="!isPINode" v-html="OPERATOR_CHARS[model.compType]"></div>
+        <img v-if="isPINode" :style="symbolImageStyles" src="../assets/images/math-pi.png" alt="">
+      </div>
     </template>
   </div>
 </template>
@@ -75,6 +78,15 @@ export default {
       CENTER_NODES.includes(this.model.compType) && (styles['lineHeight'] = 0.5)
       ITALIC_NODES.includes(this.model.compType) && (styles['fontStyle'] = 'italic')
       return Object.assign({}, this._fontStyles, styles)
+    },
+    symbolImageStyles() {
+      const styles = (fontSize) => ({
+        height: `${fontSize}px`,
+        width: `${fontSize}px`
+      })
+      return this._isScriptChild 
+        ? styles(this._smallFontSize)
+        : styles(this._normalFontSize)
     }
   },
   watch: {
