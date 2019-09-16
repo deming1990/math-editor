@@ -11,5 +11,6 @@ export default {
 <style lang="less" scoped>
   .basic-node {
     box-sizing: content-box;
+    flex-shrink: 0;
   }
 </style>
