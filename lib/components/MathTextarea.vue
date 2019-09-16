@@ -263,8 +263,8 @@ export default {
     }) {
       const handleTextNode = (beforeChildren, afterChildren, node, nodeIndex, cursorPosition) => {
         if(cursorPosition === 0) {
-          beforeChildren.splice(nodeIndex, 1, NodeManager.createTextNode())
           afterChildren.unshift(node)
+          beforeChildren.splice(nodeIndex, 1)
         } else if (cursorPosition > 0 && cursorPosition < node.value.length) {
           const beforeNode = NodeManager.createTextNode()
           const afterNode = NodeManager.createTextNode()
