@@ -209,6 +209,7 @@ export default {
           : this.getRow(idx).getFirstChild()
         if(!NodeManager.isTextNode(selectedChild)) {
           selectedChild = NodeManager.createTextNode()
+          selectedChild.parent = this.getRow(idx)
           direction === 1
             ? this.getRow(idx).appendChild(selectedChild)
             : this.getRow(idx).unshift(selectedChild)
