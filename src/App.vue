@@ -11,7 +11,6 @@
       <div class="tab-body-item">
         <math-editor 
           :mode="'edit'"
-          textAreaWidth="200px"
           ref="mathEditorA">
         </math-editor>
       </div>
@@ -69,7 +68,7 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
-      this.$refs.mathEditorB.setValue(result)
+      this.$refs.mathEditorB.setValue(this.result)
     },
     handleHtml() {
       const html = this.$refs.mathEditorA.getHtml()
