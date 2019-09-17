@@ -46,6 +46,10 @@ export default {
             // 上线相对位置计算
             this._format()
           })
+          setTimeout(() => {
+            // 由于折行原因，在一行中存在最高度元素，被折到下一行，需要再次进行计算
+            this._format()
+          },0)
         }
       },
       immediate: true
