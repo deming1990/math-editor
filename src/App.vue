@@ -68,7 +68,7 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
-      this.$refs.mathEditorB.setValue(result)
+      this.$refs.mathEditorB.setValue(this.result)
     },
     handleHtml() {
       const html = this.$refs.mathEditorA.getHtml()

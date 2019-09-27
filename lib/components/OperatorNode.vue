@@ -16,8 +16,9 @@
         class="content" 
         :style="contentStyles" 
         @click="handleOperatorClick">
-        <div v-if="!isPINode" v-html="OPERATOR_CHARS[model.compType]"></div>
+        <div v-if="!isImageNode" v-html="OPERATOR_CHARS[model.compType]"></div>
         <img v-if="isPINode" :style="symbolImageStyles" src="../assets/images/math-pi.png" alt="">
+        <img v-if="isPerpNode" :style="symbolImageStyles" src="../assets/images/math-perp.png" alt="">
       </div>
     </template>
   </div>
@@ -49,8 +50,7 @@ export default {
   },
   data() {
     return {
-      OPERATOR_CHARS,
-      PI_NODE: '<div class="math-pi"></div>'
+      OPERATOR_CHARS
     }
   },
   computed: {
@@ -68,8 +68,15 @@ export default {
       ].includes(this.model.compType)
     },
     isPINode() {
+      return this.model.compType === NODE_TYPES.PI_NODE
+    },
+    isPerpNode() {
+      return this.model.compType === NODE_TYPES.PERP_NODE
+    },
+    isImageNode() {
       return [
-        NODE_TYPES.PI_NODE
+        NODE_TYPES.PI_NODE,
+        NODE_TYPES.PERP_NODE
       ].includes(this.model.compType)
     },
     contentStyles() {
@@ -118,12 +125,6 @@ export default {
   }
 }
 </script>
-<style lang="less">
-  .math-pi:before{
-    display: inline-block;
-    content:"\03c0";
-  }
-</style>
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .inline-node {
