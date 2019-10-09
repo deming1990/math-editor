@@ -83,7 +83,6 @@ export default {
   @border-color: #333;
   .number-node {
     position: relative;
-    height: fit-content;
     border: 1px dashed @border-color;
     display: inline-flex;
   }
