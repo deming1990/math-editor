@@ -19,6 +19,7 @@
         <div v-if="!isImageNode" v-html="OPERATOR_CHARS[model.compType]"></div>
         <img v-if="isPINode" :style="symbolImageStyles" src="../assets/images/math-pi.png" alt="">
         <img v-if="isPerpNode" :style="symbolImageStyles" src="../assets/images/math-perp.png" alt="">
+        <img v-if="isSwungDashNode" :style="symbolImageStyles" src="../assets/images/math-swung-dash.png" alt="">
       </div>
     </template>
   </div>
@@ -73,10 +74,14 @@ export default {
     isPerpNode() {
       return this.model.compType === NODE_TYPES.PERP_NODE
     },
+    isSwungDashNode() {
+      return this.model.compType === NODE_TYPES.SWUNG_DASH_NODE
+    },
     isImageNode() {
       return [
         NODE_TYPES.PI_NODE,
-        NODE_TYPES.PERP_NODE
+        NODE_TYPES.PERP_NODE,
+        NODE_TYPES.SWUNG_DASH_NODE
       ].includes(this.model.compType)
     },
     contentStyles() {
