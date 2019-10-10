@@ -75,6 +75,7 @@ export default {
       this.$set(this.sqrtValueStyle, 'marginTop', `${height}px`)
     },
     addSuperScriptObserver() {
+      this.resizeSqrtValuePosition()
       this.superScriptObserver = this._addMutationObserver(this.$refs.sqrtNodeNth, this.resizeSqrtValuePosition)
     },
     removeSuperScriptObserver() {
