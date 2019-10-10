@@ -70,8 +70,8 @@ export default {
   },
   methods: {
     resizeSqrtValuePosition() {
-      console.log('resizeSqrtValuePosition: ', this.model.uid, getComputedStyle(this.$refs.sqrtNodeNth).height)
-      let height = parseFloat(getComputedStyle(this.$refs.sqrtNodeNth).height)
+      console.log('resizeSqrtValuePosition: ', this.model.uid, this.$refs.sqrtNodeNth.clientHeight)
+      let height = this.$refs.sqrtNodeNth.clientHeight
       height -= 10
       this.$set(this.sqrtValueStyle, 'marginTop', `${height}px`)
     },
@@ -110,7 +110,6 @@ export default {
     position: relative;
     margin-left: 21px;
     display: inline-flex;
-    // align-items: center;
     .sqrt-node-part1 {
       position: absolute;
       left: -20px;
