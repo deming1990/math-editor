@@ -60,21 +60,19 @@ export default {
   methods: {
     resizeValuePosition() {
       if(this.hasSuperScript) {
-        let height = parseFloat(getComputedStyle(this.$refs.superScript).height)
+        let height =  this.$refs.superScript.clientHeight || this._smallHeight
         height -= 10
         this.$set(this.valueStyle, 'marginTop', `${height}px`)
       }
       if(this.hasSubScript) {
-        let height = parseFloat(getComputedStyle(this.$refs.subScript).height)
+        let height =  this.$refs.subScript.clientHeight || this._smallHeight
         height -= 10
         this.$set(this.valueStyle, 'marginBottom', `${height}px`)
       }
     },
     addSuperScriptObserver() {
       setTimeout(() => {
-        console.log('addSuperScriptObserver resizeValuePosition start')
         this.resizeValuePosition()
-        console.log('addSuperScriptObserver resizeValuePosition end')
       }, 0)
       this.superScriptObserver = this._addMutationObserver(this.$refs.superScript, this.resizeValuePosition)
     },
@@ -83,9 +81,7 @@ export default {
     },
     addSubScriptObserver() {
       setTimeout(() => {
-        console.log('addSuperScriptObserver resizeValuePosition start')
         this.resizeValuePosition()
-        console.log('addSuperScriptObserver resizeValuePosition end')
       }, 0)
       this.subScriptObserver = this._addMutationObserver(this.$refs.subScript, this.resizeValuePosition)
     },

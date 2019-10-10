@@ -70,8 +70,7 @@ export default {
   },
   methods: {
     resizeSqrtValuePosition() {
-      console.log('resizeSqrtValuePosition: ', this.model.uid, this.$refs.sqrtNodeNth.clientHeight)
-      let height = this.$refs.sqrtNodeNth.clientHeight
+      let height = this.$refs.sqrtNodeNth.clientHeight || this._smallHeight
       height -= 10
       this.$set(this.sqrtValueStyle, 'marginTop', `${height}px`)
     },
