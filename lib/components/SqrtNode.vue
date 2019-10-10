@@ -70,15 +70,14 @@ export default {
   },
   methods: {
     resizeSqrtValuePosition() {
+      console.log('resizeSqrtValuePosition: ', this.model.uid, getComputedStyle(this.$refs.sqrtNodeNth).height)
       let height = parseFloat(getComputedStyle(this.$refs.sqrtNodeNth).height)
       height -= 10
       this.$set(this.sqrtValueStyle, 'marginTop', `${height}px`)
     },
     addSuperScriptObserver() {
       setTimeout(() => {
-        console.log('addSuperScriptObserver resizeSqrtValuePosition start')
         this.resizeSqrtValuePosition()
-        console.log('addSuperScriptObserver resizeSqrtValuePosition end')
       }, 0)
       this.superScriptObserver = this._addMutationObserver(this.$refs.sqrtNodeNth, this.resizeSqrtValuePosition)
     },
