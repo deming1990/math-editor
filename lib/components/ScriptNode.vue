@@ -109,6 +109,7 @@ export default {
     position: relative;
     display: inline-flex;
     align-items: center;
+    height: fit-content;
   }
   .square-super-script, 
   .square-sub-script {
