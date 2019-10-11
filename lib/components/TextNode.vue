@@ -3,7 +3,7 @@
     :class="{'text-node': true, 'empty': isEmpty}"
     :style="_fontStyles">
     <input 
-      v-if="!isPreviewMode"
+      v-if="!(isPreviewMode || isPreviewSimpleMode)"
       type="text"
       autocomplete="nope"
       :id="model.uid"
@@ -15,7 +15,7 @@
       @blur="onBlur">
     <!-- 注意，不要在span中插入任何空格和换行符 -->
     <span 
-      :class="{'backend': true, 'hidden': !isPreviewMode}"
+      :class="{'backend': true, 'hidden': !(isPreviewMode || isPreviewSimpleMode)}"
       :style="_fontStyles">{{model.value}}</span>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
     },
     inputStyles() {
       return Object.assign({}, this._fontStyles, {
-        background: this.isPreviewMode ? 'none' : '#fff'
+        background: (this.isPreviewMode || this.isPreviewSimpleMode) ? 'none' : '#fff'
       })
     }
   },

@@ -34,7 +34,7 @@ export default {
   watch: {
     model: {
       handler(val) {
-        if(val && this.isPreviewMode) {
+        if(val && (this.isPreviewMode || this.isPreviewSimpleMode)) {
           this.$nextTick(() => {
             // 上线相对位置计算
             this._format()

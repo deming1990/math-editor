@@ -15,7 +15,7 @@
         </math-editor>
       </div>
       <div class="tab-body-item">
-        <math-editor :mode="'preview'" ref="mathEditorB"></math-editor>
+        <math-editor :mode="'preview_simple'" ref="mathEditorB"></math-editor>
       </div>
       <div class="tab-body-item">
         <math-editor :mode="'html'" ref="mathEditorC"></math-editor>

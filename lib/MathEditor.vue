@@ -69,6 +69,9 @@ export default {
     isPreviewMode() {
       return this.mode === EDITOR_MODES.PREVIEW
     },
+    isPreviewSimpleMode() {
+      return this.mode === EDITOR_MODES.PREVIEW_SIMPLE
+    },
     isHtmlMode() {
       return this.mode === EDITOR_MODES.HTML
     },
@@ -79,7 +82,7 @@ export default {
       return {
         'math-editor': true,
         'edit-mode': this.isEditMode,
-        'preview-mode': this.isPreviewMode,
+        'preview-mode': this.isPreviewMode || this.isPreviewSimpleMode,
         'html-mode': this.isHtmlMode
       }
     },
@@ -102,6 +105,7 @@ export default {
   provide() {
     const data = {
       isPreviewMode: this.isPreviewMode,
+      isPreviewSimpleMode: this.isPreviewSimpleMode,
       isEditMode: this.isEditMode,
       isEditLineFeed: this.isEditLineFeed,
       isHtmlMode: this.isHtmlMode,
