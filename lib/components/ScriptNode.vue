@@ -60,12 +60,12 @@ export default {
   methods: {
     resizeValuePosition() {
       if(this.hasSuperScript) {
-        let height =  this.$refs.superScript.clientHeight || this._smallHeight
+        let height =  (this.$refs.superScript && this.$refs.superScript.clientHeight) || this._smallHeight
         height -= 10
         this.$set(this.valueStyle, 'marginTop', `${height}px`)
       }
       if(this.hasSubScript) {
-        let height =  this.$refs.subScript.clientHeight || this._smallHeight
+        let height = (this.$refs.subScript && this.$refs.subScript.clientHeight) || this._smallHeight
         height -= 10
         this.$set(this.valueStyle, 'marginBottom', `${height}px`)
       }

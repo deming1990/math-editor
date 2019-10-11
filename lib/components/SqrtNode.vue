@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     resizeSqrtValuePosition() {
-      let height = this.$refs.sqrtNodeNth.clientHeight || this._smallHeight
+      let height = (this.$refs.sqrtNodeNth && this.$refs.sqrtNodeNth.clientHeight) || this._smallHeight
       height -= 10
       this.$set(this.sqrtValueStyle, 'marginTop', `${height}px`)
     },

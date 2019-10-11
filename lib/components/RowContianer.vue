@@ -26,17 +26,10 @@ export default {
     model: Object
   },
   mounted() {
-    if(this.isEditMode && !this.isDataLoading) {
-      this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
-          // 注释掉边界检测
-          if(this.isEditLineFeed) {
-            this.boundaryDetection(mutationsList)
-          }
-      })
-    }
+    this.addRowFormatListener()
   },
   destroyed() {
-    this._removeFormatListener()
+    this.removeRowFormatListener()
   },
   watch: {
     model: {
@@ -124,6 +117,28 @@ export default {
           changedTargets
         })
       }
+    },
+    rowFormat() {
+      this.removeRowFormatListener()
+      this.$nextTick(() => {
+        this._format()
+        this.$nextTick(() => {
+          this.addRowFormatListener()
+        })
+      })
+    },
+    addRowFormatListener() {
+      if(this.isEditMode) {
+        this._addFormatListener(this.$refs.rowContainer, (mutationsList) => {
+            // 注释掉边界检测
+            if(this.isEditLineFeed) {
+              this.boundaryDetection(mutationsList)
+            }
+        })
+      }
+    },
+    removeRowFormatListener() {
+      this._removeFormatListener()
     }
   }
 }

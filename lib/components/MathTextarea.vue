@@ -11,7 +11,8 @@
       @deleteNode="onDeleteNode"
       @lineFeed="onLineFeed"
       @boundaryDetection="onBoundaryDetection"
-      @operatorClick="onOperatorClick">
+      @operatorClick="onOperatorClick"
+      ref="rows">
     </row-container>
   </div>  
 </template>
@@ -56,6 +57,9 @@ export default {
       let newRows = NodeManager.cloneRows(helper.strToArr(val))
       this.rows = newRows
       this.$nextTick(async () => {
+        this.$refs.rows.forEach((row) => {
+          row.rowFormat()
+        })
         if(this.isPreviewMode) {
           this.boundaryDetectionRows()
         }

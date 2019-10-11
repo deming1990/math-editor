@@ -59,7 +59,6 @@ export default {
       EDITOR_MODES,
       currCategory: '',
       panelVisible: false,
-      isDataLoading: false,
       rawHtml: ''
     }
   },
@@ -106,7 +105,6 @@ export default {
       isEditMode: this.isEditMode,
       isEditLineFeed: this.isEditLineFeed,
       isHtmlMode: this.isHtmlMode,
-      isDataLoading: false,
       _normalFontSize: this.normalFontSize,
       _normalHeight: this.normalFontSize + 2,
       _smallFontSize: this.smallFontSize,
@@ -126,11 +124,7 @@ export default {
       return this.$refs.mathTextarea.$el.outerHTML
     },
     setValue(str) {
-      this.globalVM.isDataLoading = true
       this.$refs.mathTextarea.setValue(str)
-      setTimeout(() => {
-        this.globalVM.isDataLoading = false
-      }, 0)
     },
     setHtml(html) {
       this.rawHtml = html
