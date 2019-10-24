@@ -15,12 +15,9 @@
     "start": "./node_modules/.bin/webpack-dev-server --config ./build/config.dev.js",
     "build": "./node_modules/.bin/webpack-cli --config ./build/config.pro.js"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@babel/runtime": "^7.5.5",
     "flatted": "^2.0.1",
-    "vue": "^2.6.10"
-  },
-  "peerDependencies": {
     "vue": "^2.6.10"
   },
   "devDependencies": {
