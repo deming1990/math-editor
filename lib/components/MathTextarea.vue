@@ -3,7 +3,7 @@
     ref="mathTextarea"
     @click="onMathTextareaClick"
     @click.right="onMathTextareaClick"
-    contenteditable="true">
+    :contenteditable="isEditMode">
     <row-container 
       v-for="row in rows"
       :model="row"
