@@ -19,7 +19,8 @@
         <div v-if="!isImageNode" v-html="OPERATOR_CHARS[model.compType]"></div>
         <img v-if="isPINode" :style="symbolImageStyles" src="../assets/images/math-pi.png" alt="">
         <img v-if="isPerpNode" :style="symbolImageStyles" src="../assets/images/math-perp.png" alt="">
-        <img v-if="isSwungDashNode" :style="symbolImageStyles" src="../assets/images/math-swung-dash.png" alt="">
+        <img v-if="isSwungDashNode" :style="symbolImageStyles" src="../assets/images/math-similar.svg" alt="">
+        <img v-if="isEqualOrApproximatelyEqualNode" :style="symbolImageStyles" src="../assets/images/math-congruent.svg" alt="">
       </div>
     </template>
   </div>
@@ -35,7 +36,14 @@ const NO_PADDING_NODES = [
   NODE_TYPES.PI_NODE,
   NODE_TYPES.ANGLE_NODE,
   NODE_TYPES.TRIANGLE_NODE,
-  NODE_TYPES.PARALLELOGRAM_NODE
+  NODE_TYPES.PARALLELOGRAM_NODE,
+  NODE_TYPES.FACTORIAL_NODE,
+  NODE_TYPES.DOT_NODE,
+  NODE_TYPES.PLUS_MINUS_NODE,
+  NODE_TYPES.CIRCLED_DOT_NODE,
+  NODE_TYPES.INFINITY_NODE,
+  NODE_TYPES.EQUAL_OR_APPROXIMATELY_EQUAL_NODE,
+  NODE_TYPES.SWUNG_DASH_NODE
 ]
 const ITALIC_NODES = [
   NODE_TYPES.PARALLEL_NODE
@@ -76,6 +84,9 @@ export default {
     },
     isSwungDashNode() {
       return this.model.compType === NODE_TYPES.SWUNG_DASH_NODE
+    },
+    isEqualOrApproximatelyEqualNode() {
+      return this.model.compType === NODE_TYPES.EQUAL_OR_APPROXIMATELY_EQUAL_NODE
     },
     isImageNode() {
       return [

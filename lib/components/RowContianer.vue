@@ -146,7 +146,7 @@ export default {
 <style lang="less" scoped>
   @import '../styles/variables.less';
   .row-container {
-    padding: 2.5px 5px 2.5px 5px;
+    padding: 5px;
     font-size: 15px;
     box-sizing: border-box;
     white-space: nowrap;
