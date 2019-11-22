@@ -77,8 +77,10 @@ export default {
     addSlantedFractionObserver() {
       this.superValueObserver = this._addMutationObserver(this.$refs.superEl, this.resizeSuperValuePosition)
       this.subValueObserver = this._addMutationObserver(this.$refs.subEl, this.resizeSubValuePosition)
-      this.resizeSuperValuePosition()
-      this.resizeSubValuePosition()
+      setTimeout(() => {
+        this.resizeSuperValuePosition()
+        this.resizeSubValuePosition()
+      }, 0)
     },
     removeSlantedFractionObserver() {
       this._removeMutationObserver(this.superValueObserver)
