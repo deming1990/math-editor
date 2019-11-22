@@ -1,31 +1,11 @@
 <template>
   <div :id="model.uid" :class="fractionsClazz">
-    <div class="superValue">
-      <template v-if="!isSlantedFractions">
-        <basic-node v-for="item in superValue" :model="item" :key="item.uid" />
-      </template>
-      <template v-else>
-        <div>
-          <basic-node v-for="item in superValue" :model="item" :key="item.uid" />
-        </div>
-        <div class="hidden">
-          <basic-node v-for="item in subValue" :model="item" :key="item.uid" />
-        </div>
-      </template>
+    <div class="superValue" :style="superStyle" ref="superEl">
+      <basic-node v-for="item in superValue" :model="item" :key="item.uid" />
     </div>
     <div class="split"></div>
-    <div class="subValue">
-      <template v-if="!isSlantedFractions">
-        <basic-node v-for="item in subValue" :model="item" :key="item.uid" />
-      </template>
-      <template v-else>
-        <div class="hidden">
-          <basic-node v-for="item in superValue" :model="item" :key="item.uid" />
-        </div>
-        <div>
-          <basic-node v-for="item in subValue" :model="item" :key="item.uid" />
-        </div>
-      </template>
+    <div class="subValue" :style="subStyle" ref="subEl">
+      <basic-node v-for="item in subValue" :model="item" :key="item.uid" />
     </div>
   </div>  
 </template>
@@ -35,21 +15,25 @@ import {
   SLOT_SUPER_VALUE,
   SLOT_SUB_VALUE
 } from '../constants'
-
+import compMixin from './component-mixin'
 export default {
   name: NODE_TYPES.FRACTIONS_NODE,
+  mixins: [compMixin],
+  data() {
+    return {
+      superStyle: { marginBottom: 0 },
+      subStyle: { marginTop: 0 }
+    }
+  },
   props: {
     model: Object
   },
   computed: {
-    isSlantedFractions() {
-      return this.model.compType === NODE_TYPES.SLANTED_FRACTION_NODE
-    },
     fractionsClazz() {
       const compType = this.model.compType
       return {
-        'fractions-node': compType === NODE_TYPES.FRACTIONS_NODE,
-        'slanted-fractions-node': compType === NODE_TYPES.SLANTED_FRACTION_NODE
+        'fractions-node': this.isFractionsNode,
+        'slanted-fractions-node': this.isSlantedFractionNode
       }
     },
     superValue() {
@@ -63,6 +47,42 @@ export default {
     },
     hasSubValue() {
       return this.subValue.length > 1 || this.subValue[0].value !== ''
+    },
+    isSlantedFractionNode() {
+      return this.model.compType === NODE_TYPES.SLANTED_FRACTION_NODE
+    },
+    isFractionsNode() {
+      return this.model.compType === NODE_TYPES.FRACTIONS_NODE
+    }
+  },
+  mounted() {
+    if(this.isSlantedFractionNode) {
+      this.addSlantedFractionObserver()
+    }
+  },
+  destroyed() {
+    if(this.isSlantedFractionNode) {
+      this.removeSlantedFractionObserver()
+    }
+  },
+  methods: {
+    resizeSuperValuePosition() {
+      const offset = (this.$refs.superEl && this.$refs.superEl.clientHeight) || this._normalHeight
+      this.subStyle.marginTop = `${offset}px`
+    },
+    resizeSubValuePosition() {
+      const offset = (this.$refs.subEl && this.$refs.subEl.clientHeight) || this._normalHeight
+      this.superStyle.marginBottom = `${offset}px`
+    },
+    addSlantedFractionObserver() {
+      this.superValueObserver = this._addMutationObserver(this.$refs.superEl, this.resizeSuperValuePosition)
+      this.subValueObserver = this._addMutationObserver(this.$refs.subEl, this.resizeSubValuePosition)
+      this.resizeSuperValuePosition()
+      this.resizeSubValuePosition()
+    },
+    removeSlantedFractionObserver() {
+      this._removeMutationObserver(this.superValueObserver)
+      this._removeMutationObserver(this.subValueObserver)
     }
   }
 }
@@ -96,12 +116,6 @@ export default {
       width: 20px;
       margin: 0 2.5px;
       background: linear-gradient(to bottom right, transparent calc(50% - 2px), black calc(50% - 2px), black 50%, transparent 50%);
-    }
-    &>.superValue, &>.subValue {
-      .hidden {
-        visibility: hidden;
-        width: 1px;
-      }
     }
     &>.superValue {
       margin-right: -8px;
