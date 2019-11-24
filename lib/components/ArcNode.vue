@@ -41,12 +41,12 @@ export default {
     display: inline-flex;
     .arc {
       position: absolute;
-      top: -3px;
-      left: 5px;
-      right: 5px;
-      height: 8px;
-      border-top: 1px solid #000;
-      border-radius: 50%;
+      top: -5px;
+      left: 2px;
+      right: 2px;
+      height: 10px;
+      background-image: url('../assets/images/math-arc.png');
+      background-size: 100% 100%;
     }
     .top-line {
       position: absolute;

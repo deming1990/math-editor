@@ -2,8 +2,7 @@
   <div class="math-textarea"
     ref="mathTextarea"
     @click="onMathTextareaClick"
-    @click.right="onMathTextareaClick"
-    :contenteditable="isEditMode">
+    @click.right="onMathTextareaClick">
     <row-container 
       v-for="row in rows"
       :model="row"
