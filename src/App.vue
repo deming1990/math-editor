@@ -50,7 +50,134 @@ const TABS = [
   {id: 3, name: 'HTML模式'}
 ]
 
-const result = `[["1"],{"uid":"2","compType":"3","children":"4"},"row-1568700677550","row-container",["5","6","7","8","9","10","11","12","13","14","15","16","17"],{"uid":"18","compType":"19","parent":"1","value":"20"},{"uid":"21","compType":"22","parent":"1","children":"23"},{"uid":"24","compType":"19","parent":"1","value":"25"},{"uid":"26","compType":"27","parent":"1","children":"28"},{"uid":"29","compType":"19","parent":"1","value":"30"},{"uid":"31","compType":"32","parent":"1","children":"33"},{"uid":"34","compType":"19","parent":"1","value":"35"},{"uid":"36","compType":"37","parent":"1"},{"uid":"38","compType":"19","parent":"1","value":"39"},{"uid":"40","compType":"41","parent":"1","children":"42"},{"uid":"43","compType":"19","parent":"1","value":"44"},{"uid":"45","compType":"46","parent":"1","children":"47"},{"uid":"48","compType":"19","parent":"1","value":"49"},"node-1568700677550","text-node","123","node-1568700677555","fractions-node",["50","51"],"node-1568700677557","1","node-1568700677562","nth-sqrt-node",["52","53"],"node-1568700677564"," ","node-1568700677567","sqrt-node",["54"],"node-1568700677569","23123","node-1568700677570","plus-node","node-1568700677576","","node-1568700677575","curly-brace-node",["55"],"node-1568700677585","122323","node-1568700677584","super-script-and-sub-script-node",["56","57","58"],"node-1568700677586","312323",{"uid":"59","compType":"60","parent":"6","slot":"61","children":"62"},{"uid":"63","compType":"60","parent":"6","slot":"64","children":"65"},{"uid":"66","compType":"60","parent":"8","slot":"67","children":"68"},{"uid":"69","compType":"60","parent":"8","slot":"70","children":"71"},{"uid":"72","compType":"60","parent":"10","slot":"67","children":"73"},{"uid":"74","compType":"60","parent":"14","slot":"67","children":"75"},{"uid":"76","compType":"60","parent":"16","slot":"67","children":"77"},{"uid":"78","compType":"60","parent":"16","slot":"79","children":"80"},{"uid":"81","compType":"60","parent":"16","slot":"70","children":"82"},"node-1568700677552","number-node","super_value",["83"],"node-1568700677554","sub_value",["84"],"node-1568700677559","value",["85"],"node-1568700677561","super_script",["86"],"node-1568700677566",["87"],"node-1568700677574",["88"],"node-1568700677579",["89"],"node-1568700677581","sub_script",["90"],"node-1568700677583",["91"],{"uid":"92","compType":"19","parent":"50","slot":"67","value":"20"},{"uid":"93","compType":"19","parent":"51","slot":"67","value":"94"},{"uid":"95","compType":"19","parent":"52","slot":"67","value":"20"},{"uid":"96","compType":"19","parent":"53","slot":"67","value":"20"},{"uid":"97","compType":"19","parent":"54","slot":"67","value":"20"},{"uid":"98","compType":"19","parent":"55","slot":"67","value":"94"},{"uid":"99","compType":"19","parent":"56","slot":"67","value":"20"},{"uid":"100","compType":"19","parent":"57","slot":"67","value":"101"},{"uid":"102","compType":"19","parent":"58","slot":"67","value":"103"},"node-1568700677551","node-1568700677553","123123","node-1568700677558","node-1568700677560","node-1568700677565","node-1568700677573","node-1568700677578","node-1568700677580","2323","node-1568700677582","23"]`
+const result = [
+    [
+        "1",
+        "2"
+    ],
+    {
+        "uid": "3",
+        "compType": "4",
+        "children": "5"
+    },
+    {
+        "uid": "6",
+        "compType": "4",
+        "children": "7"
+    },
+    "row-1571726105058",
+    "row-container",
+    [
+        "8"
+    ],
+    "row-1571726105059",
+    [
+        "9",
+        "10",
+        "11"
+    ],
+    {
+        "uid": "12",
+        "compType": "13",
+        "parent": "1",
+        "value": "14"
+    },
+    {
+        "uid": "15",
+        "compType": "13",
+        "parent": "2",
+        "value": "16"
+    },
+    {
+        "uid": "17",
+        "compType": "18",
+        "parent": "2",
+        "children": "19"
+    },
+    {
+        "uid": "20",
+        "compType": "13",
+        "parent": "2",
+        "value": "21"
+    },
+    "node-1571726108911",
+    "text-node",
+    "【答案】10.28平方厘米 ",
+    "node-1573613412294",
+    "【分析】4个圆阴影部分各取其中的",
+    "node-1573613412293",
+    "fractions-node",
+    [
+        "22",
+        "23"
+    ],
+    "node-1573613412295",
+    "圆填补到中间的正方形，这样正方形被补满，外面4个圆中的阴影均剩下半个圆，拼到一起为2个完整的圆.求出阴影面积即可.正方形边长为1×2=2（厘米）；面积为2×2=4（平方厘米）；2个完整圆的面积：2×1×1×3.14=6.28（平方厘米）；阴影总面积：4+6.28=10.28（平方厘米）．",
+    {
+        "uid": "24",
+        "compType": "25",
+        "parent": "26",
+        "slot": "27",
+        "children": "28"
+    },
+    {
+        "uid": "29",
+        "compType": "25",
+        "parent": "26",
+        "slot": "30",
+        "children": "31"
+    },
+    "node-1573613412290",
+    "number-node",
+    {
+        "uid": "17",
+        "compType": "18",
+        "parent": "2",
+        "children": "19"
+    },
+    "super_value",
+    [
+        "32"
+    ],
+    "node-1573613412292",
+    "sub_value",
+    [
+        "33"
+    ],
+    {
+        "uid": "34",
+        "compType": "13",
+        "parent": "35",
+        "slot": "36",
+        "value": "37"
+    },
+    {
+        "uid": "38",
+        "compType": "13",
+        "parent": "39",
+        "slot": "36",
+        "value": "40"
+    },
+    "node-1573613412289",
+    {
+        "uid": "24",
+        "compType": "25",
+        "parent": "26",
+        "slot": "27",
+        "children": "28"
+    },
+    "value",
+    "1",
+    "node-1573613412291",
+    {
+        "uid": "29",
+        "compType": "25",
+        "parent": "26",
+        "slot": "30",
+        "children": "31"
+    },
+    "4"
+];
 
 export default {
   data() {
@@ -68,7 +195,7 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
-      this.$refs.mathEditorB.setValue(this.result)
+      this.$refs.mathEditorB.setValue(JSON.stringify(result))
     },
     handleHtml() {
       const html = this.$refs.mathEditorA.getHtml()
