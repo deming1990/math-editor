@@ -316,8 +316,9 @@ export default {
       rowModel,
       rowContainer,
       changedTargets
-    }) {     
-      const res = this.boundaryDetection.detectBoundary(rowModel, rowContainer, changedTargets)
+    }) {
+      const fontSize = this._normalFontSize     
+      const res = this.boundaryDetection.detectBoundary(rowModel, rowContainer, changedTargets, fontSize)
       if(res) {
         const {
           nodeModel,
