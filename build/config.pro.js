@@ -33,11 +33,11 @@ module.exports = merge(baseConfig, {
     ]
   },
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        parallel: true,
-      })
-    ],
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //     parallel: true,
+    //   })
+    // ],
   },
   externals: {
     vue: 'vue'

@@ -280,6 +280,7 @@ export default {
           afterChildren.unshift(afterNode)
         }
       }
+      console.log(' node: ', node, ' parent: ', node.parent)
       if(!isRowContainer(node.parent)) 
         return Promise.resolve()
       const row = node.parent

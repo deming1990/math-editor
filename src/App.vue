@@ -15,7 +15,7 @@
         </math-editor>
       </div>
       <div class="tab-body-item">
-        <math-editor :mode="'preview'" ref="mathEditorB"></math-editor>
+        <math-editor :mode="'preview'" ref="mathEditorB" :normalFontSize="22"></math-editor>
       </div>
       <div class="tab-body-item">
         <math-editor :mode="'html'" ref="mathEditorC"></math-editor>
@@ -50,134 +50,7 @@ const TABS = [
   {id: 3, name: 'HTML模式'}
 ]
 
-const result = [
-    [
-        "1",
-        "2"
-    ],
-    {
-        "uid": "3",
-        "compType": "4",
-        "children": "5"
-    },
-    {
-        "uid": "6",
-        "compType": "4",
-        "children": "7"
-    },
-    "row-1571726105058",
-    "row-container",
-    [
-        "8"
-    ],
-    "row-1571726105059",
-    [
-        "9",
-        "10",
-        "11"
-    ],
-    {
-        "uid": "12",
-        "compType": "13",
-        "parent": "1",
-        "value": "14"
-    },
-    {
-        "uid": "15",
-        "compType": "13",
-        "parent": "2",
-        "value": "16"
-    },
-    {
-        "uid": "17",
-        "compType": "18",
-        "parent": "2",
-        "children": "19"
-    },
-    {
-        "uid": "20",
-        "compType": "13",
-        "parent": "2",
-        "value": "21"
-    },
-    "node-1571726108911",
-    "text-node",
-    "【答案】10.28平方厘米 ",
-    "node-1573613412294",
-    "【分析】4个圆阴影部分各取其中的",
-    "node-1573613412293",
-    "fractions-node",
-    [
-        "22",
-        "23"
-    ],
-    "node-1573613412295",
-    "圆填补到中间的正方形，这样正方形被补满，外面4个圆中的阴影均剩下半个圆，拼到一起为2个完整的圆.求出阴影面积即可.正方形边长为1×2=2（厘米）；面积为2×2=4（平方厘米）；2个完整圆的面积：2×1×1×3.14=6.28（平方厘米）；阴影总面积：4+6.28=10.28（平方厘米）．",
-    {
-        "uid": "24",
-        "compType": "25",
-        "parent": "26",
-        "slot": "27",
-        "children": "28"
-    },
-    {
-        "uid": "29",
-        "compType": "25",
-        "parent": "26",
-        "slot": "30",
-        "children": "31"
-    },
-    "node-1573613412290",
-    "number-node",
-    {
-        "uid": "17",
-        "compType": "18",
-        "parent": "2",
-        "children": "19"
-    },
-    "super_value",
-    [
-        "32"
-    ],
-    "node-1573613412292",
-    "sub_value",
-    [
-        "33"
-    ],
-    {
-        "uid": "34",
-        "compType": "13",
-        "parent": "35",
-        "slot": "36",
-        "value": "37"
-    },
-    {
-        "uid": "38",
-        "compType": "13",
-        "parent": "39",
-        "slot": "36",
-        "value": "40"
-    },
-    "node-1573613412289",
-    {
-        "uid": "24",
-        "compType": "25",
-        "parent": "26",
-        "slot": "27",
-        "children": "28"
-    },
-    "value",
-    "1",
-    "node-1573613412291",
-    {
-        "uid": "29",
-        "compType": "25",
-        "parent": "26",
-        "slot": "30",
-        "children": "31"
-    },
-    "4"
-];
+// const result = {"id":0,"type":"CHOICE_SINGLE","title":{"text":" ","mathText":"[[\"1\"],{\"uid\":\"2\",\"compType\":\"3\",\"children\":\"4\"},\"row-1572849227619\",\"row-container\",[\"5\",\"6\",\"7\"],{\"uid\":\"8\",\"compType\":\"9\",\"parent\":\"1\",\"value\":\"10\"},{\"uid\":\"11\",\"compType\":\"12\",\"parent\":\"1\",\"children\":\"13\"},{\"uid\":\"14\",\"compType\":\"9\",\"parent\":\"1\",\"value\":\"15\"},\"node-1572849228126\",\"text-node\",\"猪八戒去餐厅吃午餐，由于客人太多，小吃只剩下：水晶虾饺、蟹黄汤包、牛肉豆皮、米酒汤圆，主食只剩下：担担面和过桥米线，饮品只剩下：豆浆和可乐．如果猪八戒主食只点一种、但小吃点两种、饮品只点一种，则猪八戒有 \",\"node-1572849228125\",\"bracket-node\",[\"16\"],\"node-1572849228127\",\"种不同的点餐方法．\",{\"uid\":\"17\",\"compType\":\"18\",\"parent\":\"19\",\"slot\":\"20\",\"children\":\"21\"},\"node-1572849228124\",\"number-node\",{\"uid\":\"11\",\"compType\":\"12\",\"parent\":\"1\",\"children\":\"13\"},\"value\",[\"22\"],{\"uid\":\"23\",\"compType\":\"9\",\"parent\":\"24\",\"slot\":\"20\",\"value\":\"25\"},\"node-1572849228123\",{\"uid\":\"17\",\"compType\":\"18\",\"parent\":\"19\",\"slot\":\"20\",\"children\":\"21\"},\"\"]","mathHtml":"","image":"","audio":"","imageSize":null},"items":[{"cid":0,"head":"A","field":{"text":" ","mathText":"[[\"1\"],{\"uid\":\"2\",\"compType\":\"3\",\"children\":\"4\"},\"row-1572849227620\",\"row-container\",[\"5\"],{\"uid\":\"6\",\"compType\":\"7\",\"parent\":\"1\",\"value\":\"8\"},\"node-1572849228128\",\"text-node\",\"2\"]","mathHtml":"","image":"","audio":""}},{"cid":1,"head":"B","field":{"text":" ","mathText":"[[\"1\"],{\"uid\":\"2\",\"compType\":\"3\",\"children\":\"4\"},\"row-1572849227621\",\"row-container\",[\"5\"],{\"uid\":\"6\",\"compType\":\"7\",\"parent\":\"1\",\"value\":\"8\"},\"node-1572849228129\",\"text-node\",\"8\"]","mathHtml":"","image":"","audio":""}},{"cid":2,"head":"C","field":{"text":" ","mathText":"[[\"1\"],{\"uid\":\"2\",\"compType\":\"3\",\"children\":\"4\"},\"row-1572849227622\",\"row-container\",[\"5\"],{\"uid\":\"6\",\"compType\":\"7\",\"parent\":\"1\",\"value\":\"8\"},\"node-1572849228130\",\"text-node\",\"24\"]","mathHtml":"","image":"","audio":""}}],"time":30,"score":10,"answer":2,"analyTxt":"","mathAnalyTxt":"[[\"1\"],{\"uid\":\"2\",\"compType\":\"3\",\"children\":\"4\"},\"row-1572849227623\",\"row-container\",[\"5\"],{\"uid\":\"6\",\"compType\":\"7\",\"parent\":\"1\",\"value\":\"8\"},\"node-1572849228131\",\"text-node\",\"根据猪八戒主食只点一种，但小吃要点两种，饮品只点一种， ①\\t主食只点一种共有2种可能 ②\\t小吃点两种有6种可能 ③\\t饮品只点一种有2种可能 最后运用乘法原理共有2×6×2=24（种）可能.\"]","mathAnalyHtml":"","optionTypeCode":"math_text","subjectId":2,"useMathEditor":true};
 
 export default {
   data() {
@@ -195,7 +68,7 @@ export default {
       this.result = this.$refs.mathEditorA.getValue()
     },
     handleInput() {
-      this.$refs.mathEditorB.setValue(JSON.stringify(result))
+      this.$refs.mathEditorB.setValue(this.result)
     },
     handleHtml() {
       const html = this.$refs.mathEditorA.getHtml()
