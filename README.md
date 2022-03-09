@@ -15,7 +15,6 @@
 ```shell
 
 # 开发版
-yarn add ssh://git@code.vipkid.com.cn:3590/kongdeming/math-editor.git
 
 ```
 
